@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -34,3 +35,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+=======
+# car-rent
+Pixel Perfect implementation of the MORENT car rental Figma design. Built with Next.js and TypeScript, demonstrating precise UI fidelity, modular architecture, and clean state management. Home page, Category Search, Payment checkout, and Admin Dashboard with vehicle stats.
+>>>>>>> 673ab16543c00fb30b23659aa68d621781216d94
