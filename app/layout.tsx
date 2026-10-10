@@ -1,21 +1,20 @@
-import type { Metadata } from 'next';
-import '@fontsource-variable/plus-jakarta-sans';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import './globals.css';
+import { Plus_Jakarta_Sans } from "next/font/google";
+import "./globals.css";
+import type { ReactNode } from "react";
 
-export const metadata: Metadata = {
-  title: 'MORENT - Car Rental',
-  description: 'The best platform for car rental',
-};
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+});
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
-      <body>
-        <Header />
-        <main className="main">{children}</main>
-        <Footer />
+      <body className={`${jakarta.className} bg-bg-color`}>
+        {children}
       </body>
     </html>
   );

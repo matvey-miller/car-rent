@@ -1,68 +1,76 @@
-import Image from 'next/image';
-import { HeroCard } from '../components/HeroCard';
-import { BookingForm } from '../components/BookingForm';
-import { CarCard } from '../components/CarCard';
-import { Button } from '../components/Button';
-import { popularCars, recommendedCars } from '../../data/cars';
+"use client"
+import Image from "next/image"
 
-export default function HomePage() {
-  return (
-    <>
-      <section className="hero-section">
-        <HeroCard
-          title="The Best Platform for Car Rental"
-          description="Ease of doing a car rental safely and reliably. Of course at a low price."
-          buttonText="Rental Car"
-          bgSrc="/icons/ads1.svg"
-          carSrc="/icons/car.svg"
-          variant="light"
-        />
-        <HeroCard
-          title="Easy way to rent a car at a low price"
-          description="Providing cheap car rental services and safe and comfortable facilities."
-          buttonText="Rental Car"
-          bgSrc="/icons/ads2.svg"
-          carSrc="/icons/car.svg"
-          variant="dark"
-        />
-      </section>
+import Header from "../components/Header"
+import Advertisment from "../components/Advertisment"
+import RentalDetailsFrom from "../components/RentalDetailsForm"
+import CarCard from "../components/CarCard"
+import Footer from "../components/Footer"
 
-      <section className="booking-section">
-        <BookingForm title="Pick - Up" type="pickup" />
-        <div className="swap">
-          <button type="button" className="swap__btn" aria-label="Swap locations">
-            <Image src="/icons/swap.svg" alt="" width={24} height={24} />
-          </button>
+export default function Home() {
+    return(
+        <div className="flex flex-col gap-[32px]">
+            <Header/>
+            <div className="flex flex-col gap-[32px] w-[1312px] m-auto">
+
+                <div className="w-full h-[360px] flex justify-center gap-[32px]">
+                    <Advertisment number={1}/>
+                    <Advertisment number={2}/>
+                </div>
+
+                <div className="w-full h-[132px] flex justify-center items-center gap-[44px]">
+                    <RentalDetailsFrom/>
+                    <button className="w-[60px] h-[60px] flex items-center justify-center rounded-[10px] bg-primary-500 shrink-0">
+                        <Image
+                        src="/swap.svg"
+                        alt="swap"
+                        width={24}
+                        height={24}
+                        />
+                    </button>
+                    <RentalDetailsFrom/>
+                </div>
+
+
+                <div className="cars-category-container">
+                    <h2 className="text-s-8 text-secondary-300">Popular Car</h2>
+                    <button className="text-primary-500">View all</button>
+                </div>
+
+                <div className="car-cards-container">
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+
+                </div>
+
+                <div className="cars-category-container">
+                    <h2 className="text-s-8 text-secondary-300">Recommendation Car</h2>
+                </div>
+
+                <div className="car-cards-container">
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+                    <CarCard/>
+
+                </div>
+
+                <div className="flex justify-center items-center w-100% h-[44px] my-[32px]">
+                    <button className="btn bg-primary-500 w-[156px] h-[44px] text-s-8 text-semibold text-white">
+                        Show more car
+                    </button>
+                </div>
+                
+            </div>
+            
+            <Footer/>
+            
         </div>
-        <BookingForm title="Drop - Off" type="dropoff" />
-      </section>
-
-      <div className="catalog">
-        <section>
-          <div className="section-header">
-            <h2 className="section-title">Popular Car</h2>
-            <a href="#" className="view-all">View All</a>
-          </div>
-          <div className="cars-grid">
-            {popularCars.map((car) => <CarCard key={car.id} car={car} />)}
-          </div>
-        </section>
-
-        <section>
-          <div className="section-header">
-            {/* Написание как в макете (Recomendation) */}
-            <h2 className="section-title">Recomendation Car</h2>
-          </div>
-          <div className="cars-grid">
-            {recommendedCars.map((car) => <CarCard key={car.id} car={car} />)}
-          </div>
-        </section>
-      </div>
-
-      <div className="show-more">
-        <Button className='btn--show-more'>Show more car</Button>
-        <span className="show-more__count">120 Car</span>
-      </div>
-    </>
-  );
+    )
 }
