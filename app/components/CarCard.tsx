@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from './Button';
-import type { Car } from '../data/cars';
+import type { Car } from '../../data/cars';
 
 interface CarCardProps {
   car: Car;
@@ -32,22 +32,22 @@ export function CarCard({ car, onRent }: CarCardProps) {
       </header>
 
       <div className="car-card__image">
-        <Image src={car.image} alt={car.name} width={232} height={72} />
+        <Image src={car.image} alt={car.name} width={car.imageWidth} height={car.imageHeight} />
       </div>
 
       <ul className="car-card__specs">
-        <li><Image src="/icons/tank.svg" alt="" width={24} height={24} />{car.fuelCapacity}</li>
-        <li><Image src="/icons/car-type.svg" alt="" width={24} height={24} />{car.transmission}</li>
-        <li><Image src="/icons/profile-2user.svg" alt="" width={24} height={24} />{car.capacity}</li>
+        <li className="spec"><Image src="/icons/tank.svg" alt="" width={24} height={24} />{car.fuelCapacity}</li>
+        <li className="spec spec--tight"><Image src="/icons/car-type.svg" alt="" width={24} height={24} />{car.transmission}</li>
+        <li className="spec"><Image src="/icons/profile-2user.svg" alt="" width={24} height={24} />{car.capacity}</li>
       </ul>
 
       <footer className="car-card__footer">
         <div className="car-card__price">
-          <p>
+          <p className="car-card__price-main">
             <strong>${car.pricePerDay.toFixed(2)}/</strong>
             <span> day</span>
           </p>
-          {car.oldPricePerDay && <s>${car.oldPricePerDay.toFixed(2)}</s>}
+          {car.oldPricePerDay && <s className="car-card__price-old">${car.oldPricePerDay.toFixed(2)}</s>}
         </div>
         <Button onClick={() => onRent?.(car.id)}>Rent Now</Button>
       </footer>

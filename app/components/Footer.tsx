@@ -1,5 +1,5 @@
 const columns = [
-  { title: 'About', links: ['How it works', 'Featured', 'Partnership', 'Business Relation'] },
+  { title: 'About', links: ['How it works', 'Featured', 'Partnership', 'Bussiness Relation'] },
   { title: 'Community', links: ['Events', 'Blog', 'Podcast', 'Invite a friend'] },
   { title: 'Socials', links: ['Discord', 'Instagram', 'Twitter', 'Facebook'] },
 ];
@@ -16,7 +16,9 @@ export function Footer() {
           {columns.map((c) => (
             <div className="footer__col" key={c.title}>
               <h2>{c.title}</h2>
-              {c.links.map((l) => <a href="#" key={l}>{l}</a>)}
+              <div className="footer__links">
+                {c.links.map((l) => <a href="#" key={l}>{l}</a>)}
+              </div>
             </div>
           ))}
         </nav>

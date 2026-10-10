@@ -1,19 +1,9 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
-  fullWidth?: boolean;
+  variant?: 'primary' | 'info';
 }
 
-export function Button({
-  variant = 'primary',
-  fullWidth = false,
-  className = '',
-  type = 'button',
-  ...props
-}: ButtonProps) {
-  const classes = ['btn', `btn--${variant}`, fullWidth && 'btn--full', className]
-    .filter(Boolean)
-    .join(' ');
-  return <button type={type} className={classes} {...props} />;
+export function Button({ variant = 'primary', className = '', type = 'button', ...props }: ButtonProps) {
+  return <button type={type} className={`btn btn--${variant} ${className}`.trim()} {...props} />;
 }

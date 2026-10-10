@@ -1,33 +1,30 @@
 /* ==========================================================================
-   1. TOKENS — все размеры из Figma живут здесь. Правишь число один раз.
+   1. TOKENS (все значения сняты с Figma "HF - Home Car Rent", кадр 1440)
    ========================================================================== */
 :root {
   /* Colors */
   --primary-500: #3563e9;
   --primary-600: #264bc8;
+  --info-500: #54a6ff;
+  --info-600: #3d81db;
   --white: #ffffff;
   --secondary-500: #1a202c;
   --secondary-400: #596780;
   --secondary-300: #90a3bf;
-  --secondary-200: #c3d4e9;
   --secondary-100: #f6f7f9;
   --red: #ed3f3f;
+  --notif: #ff4423;
   --border: rgba(195, 212, 233, 0.4);
+  --text-muted: rgba(19, 19, 19, 0.6);
+  --footer-line: rgba(19, 19, 19, 0.16);
 
   /* Radius */
   --radius-sm: 4px;
   --radius-md: 10px;
 
   /* Layout */
-  --container-pad-x: 64px;      /* боковые отступы страницы */
-  --section-gap: 32px;          /* вертикальный ритм секций */
-  --grid-gap: 32px;             /* между карточками */
-  --header-height: 124px;
-
-  /* Cards */
-  --card-pad: 24px;
-  --hero-height: 360px;
-  --hero-pad: 32px;
+  --page-pad-x: 64px;
+  --grid-gap: 32px;
 }
 
 /* ==========================================================================
@@ -36,29 +33,28 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 ul { list-style: none; }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; border: 0; background: none; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
 input, select { font: inherit; }
 img { display: block; max-width: 100%; height: auto; }
-fieldset { border: 0; min-inline-size: 0; }
 
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
   background: var(--secondary-100);
   color: var(--secondary-500);
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Контент: 32 сверху, 64 по бокам и снизу.
+   Отступы между блоками задаёт margin-top у СЛЕДУЮЩЕГО блока. */
 .main {
   flex: 1;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: var(--section-gap) var(--container-pad-x);
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-gap);
+  padding: 32px var(--page-pad-x) 64px;
 }
 
 /* ==========================================================================
@@ -68,47 +64,59 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  gap: 8px;
+  height: 44px;
+  min-width: 116px;
+  padding: 0 20px;
   border-radius: var(--radius-sm);
-  font-size: 14px;
+  color: var(--white);
+  font-size: 16px;
   font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
   transition: background-color 0.2s;
 }
-.btn--primary { background: var(--primary-500); color: var(--white); }
+.btn--primary { background: var(--primary-500); }
 .btn--primary:hover { background: var(--primary-600); }
-.btn--full { width: 100%; }
+.btn--info { background: var(--info-500); }
+.btn--info:hover { background: var(--info-600); }
+
+.btn--ads { width: 120px;}
+.btn--show-more {width: 156px;}
 
 .logo {
   color: var(--primary-500);
   font-size: 32px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 32px;
   letter-spacing: -0.03em;
 }
 
 /* ==========================================================================
-   4. HEADER
+   4. HEADER  (высота 124, отступы 60 слева / 32 справа)
    ========================================================================== */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-height);
-  padding: 0 var(--container-pad-x);
+  height: 124px;
+  padding: 0 32px 0 60px;
   background: var(--white);
+  border-bottom: 1px solid var(--border);
 }
-.header__left { display: flex; align-items: center; gap: 60px; flex: 1; }
-.header__right { display: flex; align-items: center; gap: 20px; }
+.header__left { display: flex; align-items: center; gap: 78px; }
+.header .logo { flex: none; width: 134px; }
 
 .search {
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 492px;
+  gap: 20px;
+  width: 492px;
   height: 44px;
   padding: 0 20px;
-  border: 1px solid var(--secondary-200);
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: 70px;
 }
 .search input {
@@ -117,12 +125,16 @@ body {
   border: 0;
   outline: 0;
   background: transparent;
-  font-size: 14px;
   color: var(--secondary-500);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
 }
 .search input::placeholder { color: var(--secondary-400); }
 .search__filter { display: flex; }
 
+.header__right { display: flex; align-items: center; gap: 20px; }
 .icon-btn {
   position: relative;
   display: flex;
@@ -130,58 +142,69 @@ body {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--secondary-200);
+  border: 1px solid var(--border);
   border-radius: 50%;
 }
 .icon-btn--badge::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
+  top: 2px;
+  right: 2px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: var(--red);
-  border: 2px solid var(--white);
+  background: var(--notif);
 }
 .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
 
 /* ==========================================================================
-   5. HERO
+   5. HERO  (2 карточки 640x360, gap 32, padding 24)
    ========================================================================== */
-.hero-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap); }
+.hero-section { display: grid; grid-template-columns: repeat(2, 640px); gap: var(--grid-gap); }
 
 .hero-card {
   position: relative;
+  height: 360px;
+  padding: 24px;
   overflow: hidden;
-  min-height: var(--hero-height);
-  padding: var(--hero-pad);
   border-radius: var(--radius-md);
   color: var(--white);
 }
+.hero-card--light { background: var(--info-500); }
+.hero-card--dark { background: var(--primary-500); }
+
 .hero-card__bg { object-fit: cover; z-index: 0; }
-.hero-card__content { position: relative; z-index: 2; max-width: 272px; }
-.hero-card__title { font-size: 32px; font-weight: 600; line-height: 1.5; letter-spacing: -0.03em; }
-.hero-card__text { margin: 16px 0 24px; font-size: 16px; font-weight: 500; line-height: 1.75; }
-.hero-card__car {
-  position: absolute;
-  z-index: 1;
-  right: 32px;
-  bottom: 24px;
-  width: 406px;
-  height: auto;
-  max-width: 70%;
+/* Если экспортировал BG-группу из Figma целиком, вместо cover используй:
+.hero-card--light .hero-card__bg { left: -157px; top: -83px; width: 775px; height: 775px; }
+.hero-card--dark  .hero-card__bg { left: -30px;  top: 0;     width: 758px; height: 360px; } */
+
+.hero-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 284px;
 }
-.hero-card--dark .btn--primary { background: var(--primary-500); }
+.hero-card__texts { display: flex; flex-direction: column; gap: 16px; }
+.hero-card__title { max-width: 272px; font-size: 32px; font-weight: 600; line-height: 48px; letter-spacing: -0.03em; }
+.hero-card__text { font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.02em; }
+
+/* Машина: позиция и размер из Figma (относительно карточки) */
+.hero-card__car { position: absolute; z-index: 1; object-fit: contain; max-width: none; }
+.hero-card--light .hero-card__car { left: 137px; top: 234px; width: 406px; height: 116px; }
+.hero-card--dark .hero-card__car { left: 187px; top: 232px; width: 340px; height: 108px; }
 
 /* ==========================================================================
-   6. BOOKING
+   6. BOOKING  (формы 582x132, между ними 44 / switch 60 / 44)
    ========================================================================== */
-.booking-section { display: flex; align-items: center; gap: 24px; }
+.booking-section { display: flex; align-items: center; gap: 44px; margin-top: 32px; }
 
 .booking-form {
   flex: 1;
-  padding: var(--card-pad);
+  height: 132px;
+  padding: 24px 48px;
   background: var(--white);
   border-radius: var(--radius-md);
 }
@@ -189,26 +212,66 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 20px;
   margin-bottom: 16px;
   font-size: 16px;
   font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.02em;
 }
-.booking-form__fields { display: flex; align-items: center; }
-.booking-form__item { display: flex; align-items: center; flex: 1; }
-.booking-form__divider { width: 1px; height: 48px; margin: 0 24px; background: var(--border); }
+.booking-form__fields { display: flex; align-items: center; gap: 24px; height: 48px; }
+.booking-form__divider {
+  flex: none;
+  width: 0;
+  height: 48px;
+  margin-right: -1px; /* линия в Figma имеет ширину 0 */
+  border-left: 1px solid var(--border);
+}
 
-.field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-.field__label { font-size: 16px; font-weight: 700; }
+.field { display: flex; flex-direction: column; gap: 8px; flex: none; }
+.field--location { width: 126px; }
+.field--date { width: 134px; }
+.field--time { width: 130px; }
+
+.field__label {
+  height: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
 .field__select {
+  width: 100%;
+  height: 20px;
+  padding-right: 22px; /* 14 стрелка + 8 gap */
   border: 0;
   outline: 0;
-  background: transparent;
-  font-size: 12px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none'%3E%3Cpath d='M2 5l5 4.8L12 5' stroke='%231a202c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right center;
+  -webkit-appearance: none;
+  appearance: none;
   color: var(--secondary-300);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15.12px;
+  letter-spacing: -0.02em;
+  cursor: pointer;
 }
 
-.swap-btn {
-  flex-shrink: 0;
+/* Switch 60x60 + размытая тень (60x42, смещение 18, blur 40 в Figma ≈ 20px в CSS) */
+.swap { position: relative; flex: none; width: 60px; height: 60px; }
+.swap::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 60px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: rgba(16, 50, 147, 0.28);
+  filter: blur(20px);
+}
+.swap__btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,74 +279,169 @@ body {
   height: 60px;
   background: var(--primary-500);
   border-radius: var(--radius-md);
-  box-shadow: 0 10px 20px rgba(53, 99, 233, 0.25);
 }
 
 /* ==========================================================================
-   7. CARS
+   7. CATALOG  (карточки 304x388, gap 32, заголовок секции 44 + 20)
    ========================================================================== */
+.catalog { display: flex; flex-direction: column; gap: 32px; margin-top: 36px; }
+
 .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 44px;
+  padding: 0 20px;
   margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.26;
 }
-.section-title { font-size: 16px; font-weight: 600; color: var(--secondary-300); }
-.view-all { font-size: 16px; font-weight: 600; color: var(--primary-500); }
+.section-title { font-size: inherit; font-weight: inherit; color: var(--secondary-300); }
+.view-all { color: var(--primary-500); }
 
-.cars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
+.cars-grid { display: grid; grid-template-columns: repeat(4, 304px); gap: var(--grid-gap); }
 
 .car-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: var(--card-pad);
+  height: 388px;
+  padding: 24px;
   background: var(--white);
   border-radius: var(--radius-md);
 }
-.car-card__header { display: flex; align-items: flex-start; justify-content: space-between; }
-.car-card__title { font-size: 20px; font-weight: 700; line-height: 1.5; letter-spacing: -0.03em; }
-.car-card__type { font-size: 14px; font-weight: 700; color: var(--secondary-300); }
+.car-card__header { display: flex; align-items: flex-start; justify-content: space-between; height: 48px; }
+.car-card__title {
+  height: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.car-card__type {
+  height: 20px;
+  margin-top: 4px;
+  color: var(--secondary-300);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
 .car-card__fav { display: flex; }
 
-.car-card__image { display: flex; justify-content: center; margin: 48px 0 40px; }
-.car-card__image img { width: 100%; max-width: 232px; height: auto; object-fit: contain; }
+/* Зона картинки: от y72 до y272, центр картинки на y172 */
+.car-card__image { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.car-card__image img { max-width: none; object-fit: contain; }
 
-.car-card__specs {
+.car-card__specs { display: flex; gap: 16px; height: 24px; margin-bottom: 20px; }
+.spec {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 24px;
+  align-items: center;
+  gap: 6px;
+  color: var(--secondary-300);
   font-size: 14px;
   font-weight: 500;
-  color: var(--secondary-300);
+  line-height: 21px;
+  letter-spacing: -0.02em;
 }
-.car-card__specs li { display: flex; align-items: center; gap: 4px; }
+.spec--tight { gap: 4px; }
 
-.car-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-.car-card__price strong { font-size: 20px; font-weight: 700; }
-.car-card__price span { font-size: 14px; font-weight: 500; color: var(--secondary-300); }
-.car-card__price s { display: block; font-size: 14px; font-weight: 700; color: var(--secondary-300); }
+.car-card__footer { display: flex; align-items: flex-end; justify-content: space-between; }
+.car-card__price { min-height: 44px; display: flex; flex-direction: column; justify-content: center;}
+.car-card__price-main { height: 24px; line-height: 25.2px; }
+.car-card__price-main strong { font-size: 20px; font-weight: 700; }
+.car-card__price-main span { color: var(--secondary-300); font-size: 14px; font-weight: 500; }
+.car-card__price-old {
+  display: block;
+  height: 20px;
+  margin-top: 4px;
+  color: var(--secondary-300);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17.64px;
+}
 
-.show-more { position: relative; display: flex; justify-content: center; align-items: center; margin-top: 48px; }
-.show-more__count { position: absolute; right: 0; font-size: 14px; font-weight: 500; color: var(--secondary-300); }
+/* Градиент "shadow" под машиной (304x68, top 167) из Figma.
+   Цвета стопов API не отдал, поэтому подключай, если на глаз нужно.
+.car-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 167px;
+  width: 304px;
+  height: 68px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+} */
+
+.show-more {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  margin-top: 64px;
+}
+.show-more__count {
+  position: absolute;
+  right: 0;
+  color: var(--secondary-300);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
 
 /* ==========================================================================
-   8. FOOTER
+   8. FOOTER  (высота 480, отступы 80 / 60 / 60)
    ========================================================================== */
-.footer { padding: 80px var(--container-pad-x) 40px; background: var(--white); }
-.footer__top { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 36px; }
-.footer__brand { max-width: 292px; }
-.footer__brand p { margin-top: 16px; font-size: 16px; line-height: 1.75; color: var(--secondary-400); }
-.footer__nav { display: flex; gap: 100px; }
-.footer__col { display: flex; flex-direction: column; gap: 16px; }
-.footer__col h2 { margin-bottom: 8px; font-size: 20px; font-weight: 600; }
-.footer__col a { font-size: 16px; color: var(--secondary-400); }
-.footer__col a:hover { color: var(--primary-500); }
+.footer { padding: 80px 60px 60px; background: var(--white); }
+
+.footer__top { display: flex; justify-content: space-between; min-height: 244px; margin-bottom: 36px; }
+
+.footer__brand { width: 292px; }
+.footer__brand .logo { display: block; height: 44px; line-height: 48px; }
+.footer__brand p {
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+.footer__nav { display: flex; gap: 60px; }
+.footer__col { width: 152px; }
+.footer__col h2 {
+  height: 32px;
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
+.footer__links { display: flex; flex-direction: column; gap: 24px; }
+.footer__links a {
+  color: var(--text-muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+.footer__links a:hover { color: var(--primary-500); }
+
 .footer__bottom {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding-top: 36px;
-  border-top: 1px solid var(--border);
+  padding-top: 35px; /* + 1px border = 36 из Figma */
+  border-top: 1px solid var(--footer-line);
   font-size: 16px;
   font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.02em;
 }
-.footer__legal { display: flex; gap: 36px; }
+.footer__legal { display: flex; gap: 60px; }
+.footer__legal a { width: 144px; text-align: right; }

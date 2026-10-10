@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 
 interface BookingFormProps {
@@ -13,31 +14,32 @@ const fields = [
 
 export function BookingForm({ title, type }: BookingFormProps) {
   const icon = type === 'pickup' ? '/icons/pick-up.svg' : '/icons/drop-off.svg';
+  const titleId = `${type}-title`;
 
   return (
-    <fieldset className="booking-form">
-      <legend className="booking-form__title">
+    <div className="booking-form" role="group" aria-labelledby={titleId}>
+      <h3 className="booking-form__title" id={titleId}>
         <Image src={icon} alt="" width={16} height={16} />
         {title}
-      </legend>
+      </h3>
 
       <div className="booking-form__fields">
         {fields.map((f, i) => {
           const id = `${type}-${f.key}`;
           return (
-            <div className="booking-form__item" key={f.key}>
+            <React.Fragment key={f.key}>
               {i > 0 && <span className="booking-form__divider" aria-hidden />}
-              <div className="field">
+              <div className={`field field--${f.key}`}>
                 <label htmlFor={id} className="field__label">{f.label}</label>
                 <select id={id} defaultValue="" className="field__select">
                   <option value="" disabled>{f.placeholder}</option>
                   {f.options.map((o) => <option key={o}>{o}</option>)}
                 </select>
               </div>
-            </div>
+            </React.Fragment>
           );
         })}
       </div>
-    </fieldset>
+    </div>
   );
 }

@@ -15,6 +15,7 @@ export default function HomePage() {
           buttonText="Rental Car"
           bgSrc="/icons/ads1.svg"
           carSrc="/icons/car.svg"
+          variant="light"
         />
         <HeroCard
           title="Easy way to rent a car at a low price"
@@ -28,34 +29,40 @@ export default function HomePage() {
 
       <section className="booking-section">
         <BookingForm title="Pick - Up" type="pickup" />
-        <button type="button" className="swap-btn" aria-label="Swap locations">
-          <Image src="/icons/swap.svg" alt="" width={24} height={24} />
-        </button>
+        <div className="swap">
+          <button type="button" className="swap__btn" aria-label="Swap locations">
+            <Image src="/icons/swap.svg" alt="" width={24} height={24} />
+          </button>
+        </div>
         <BookingForm title="Drop - Off" type="dropoff" />
       </section>
 
-      <section className="cars-section">
-        <div className="section-header">
-          <h2 className="section-title">Popular Car</h2>
-          <a href="#" className="view-all">View All</a>
-        </div>
-        <div className="cars-grid">
-          {popularCars.map((car) => <CarCard key={car.id} car={car} />)}
-        </div>
-      </section>
+      <div className="catalog">
+        <section>
+          <div className="section-header">
+            <h2 className="section-title">Popular Car</h2>
+            <a href="#" className="view-all">View All</a>
+          </div>
+          <div className="cars-grid">
+            {popularCars.map((car) => <CarCard key={car.id} car={car} />)}
+          </div>
+        </section>
 
-      <section className="cars-section">
-        <div className="section-header">
-          <h2 className="section-title">Recommendation Car</h2>
-        </div>
-        <div className="cars-grid">
-          {recommendedCars.map((car) => <CarCard key={car.id} car={car} />)}
-        </div>
-        <div className="show-more">
-          <Button>Show more car</Button>
-          <span className="show-more__count">120 Car</span>
-        </div>
-      </section>
+        <section>
+          <div className="section-header">
+            {/* Написание как в макете (Recomendation) */}
+            <h2 className="section-title">Recomendation Car</h2>
+          </div>
+          <div className="cars-grid">
+            {recommendedCars.map((car) => <CarCard key={car.id} car={car} />)}
+          </div>
+        </section>
+      </div>
+
+      <div className="show-more">
+        <Button className='btn--show-more'>Show more car</Button>
+        <span className="show-more__count">120 Car</span>
+      </div>
     </>
   );
 }
