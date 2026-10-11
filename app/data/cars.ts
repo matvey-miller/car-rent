@@ -30,4 +30,5 @@ export const recommendedCars: Car[] = [
   { id: '10', name: 'New MG ZS', type: 'SUV', image: "cars/Car-7.svg", imageWidth: 288, imageHeight: 112, fuelCapacity: '80L', transmission: 'Manual', capacity: '6 People', pricePerDay: 80 },
   { id: '11', name: 'MG ZX Excite', type: 'Hatchback', image: "cars/Car-8.svg", imageWidth: 264, imageHeight: 108, fuelCapacity: '90L', transmission: 'Manual', capacity: '4 People', pricePerDay: 74, isFavorite: true },
   { id: '12', name: 'New MG ZS', type: 'SUV', image: "cars/Car-9.svg", imageWidth: 288, imageHeight: 112, fuelCapacity: '80L', transmission: 'Manual', capacity: '6 People', pricePerDay: 80 },
+  { id: '13', name: 'New MG ZS', type: 'SUV', image: "cars/Car-9.svg", imageWidth: 288, imageHeight: 112, fuelCapacity: '80L', transmission: 'Manual', capacity: '6 People', pricePerDay: 80 }
 ];
