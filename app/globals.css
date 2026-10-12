@@ -132,7 +132,7 @@
 /* ==========================================================================
    Filter-Bars
    ========================================================================== */
-
+   
 .r-details-form {
   width: 582px;
   height: 132px;
@@ -140,6 +140,11 @@
   background-color: var(--white);
 }
 
+.r-details-divider {
+  width: 1px;
+  margin: 0 -0.5px;
+  background-color: var(--secondary-200);
+}
 /* ==========================================================================
    CAR OFFERS
    ========================================================================== */
@@ -160,6 +165,32 @@
   box-sizing: border-box;
   font-weight: 600;
 }
+.car-card {
+  width: 304px;
+  height: 388px;
+  border-radius: 10px;
+  background-color: var(--white);
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.car-card-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.car-card-spec {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-s-9);
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: var(--secondary-300);
+}
 
 /* ==========================================================================
    CAR-CARDDS
@@ -169,6 +200,22 @@
   height: 388px;
   border-radius: 10px;
   background-color: var(--white);
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.car-card::after {
+  content: "";
+  position: absolute;
+  top: 167px;
+  left: 0;
+  width: 100%;
+  height: 68px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+  pointer-events: none;
 }
 
 .car-cards-container {
@@ -178,6 +225,27 @@
   gap: 32px;
   margin-top: -12px;
 }
+
+.car-card-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.car-card-spec {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-s-9);
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: var(--secondary-300);
+}
+
+.car-card-spec-transmission {
+  gap: 4px;
+}
+
 
 /* ==========================================================================
    Buttons
