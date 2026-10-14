@@ -1,27 +1,45 @@
+'use client'
+
+import { useState } from "react"
 import type { Car } from "../../data/cars"
+import { useRouter } from "next/navigation"
 
 interface CarCardProps {
     car: Car;
 }
 
 export default function CarCard({ car }: CarCardProps) {
+    const [isFavorite, setIsFavorite] = useState(car.isFavorite);
+    const router = useRouter();
+
     return (
-        <div className="car-card">
+        <div className="car-card cursor-pointer" onClick={() => router.push(`/car-details/${car.id}`)}>
 
             <div className="flex justify-between h-[48px]">
                 <div className="flex flex-col gap-[4px]">
-                    <h3 className="h-[24px] text-s-6 font-bold leading-[30px] tracking-[-0.03em] text-secondary-500">{car.name}</h3>
+                    <h3 className="h-[24px] text-s-6 font-bold leading-[24px] tracking-[-0.03em] text-secondary-500">{car.name}</h3>
                     <span className="h-[20px] text-s-9 font-bold leading-[21px] tracking-[-0.02em] text-secondary-300">{car.type}</span>
                 </div>
-                <img
-                    src={car.isFavorite ? "/car-card/like.svg" : "/car-card/unlike.svg"}
-                    alt="Favorite"
-                    className="car-card-icon"
-                />
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        setIsFavorite(!isFavorite)
+                    }} className="self-start">
+                    <img
+                        src={isFavorite ? "/buttons/like.svg" : "/buttons/unlike.svg"}
+                        alt="Favorite"
+                        className="car-card-icon"
+                    />
+                </button>
             </div>
 
             <div className="h-[200px] flex justify-center items-center">
-                <img src={`/${car.image}`} alt={car.name} width={car.imageWidth} height={car.imageHeight} />
+                <img
+                    src={`/${car.image}`}
+                    alt={car.name}
+                    style={{ width: car.imageWidth, height: car.imageHeight }}
+                    className="max-w-none shrink-0"
+                />
             </div>
 
             <div className="flex gap-[16px] h-[24px]">

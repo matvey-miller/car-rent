@@ -1,9 +1,25 @@
 @import "tailwindcss";
 
 
+/* ==========================================================================
+   СОДЕРЖАНИЕ
+
+   1. TOKENS ............ переменные (:root, @theme)
+   2. SHARED ............ общие элементы (кнопки)
+   3. LAYOUT ............ Header (logo), Footer
+   4. HOME PAGE ......... Advertisement, Rental details, Category title,
+                          Car cards, Show more
+   5. CATEGORY PAGE ..... Filter sidebar, Detail car, Car gallery
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. TOKENS
+   ========================================================================== */
+
 :root {
-  --bg-color: #F6F7F9; 
-  
+  --bg-color: #F6F7F9;
+
   --primary-900: #0A196F;
   --primary-800: #102587;
   --primary-700: #1A37A7;
@@ -13,7 +29,7 @@
   --primary-300: #85A8F8;
   --primary-200: #AEC8FC;
   --primary-100: #D6E4FD;
-  
+
   --white: #FFFFFF;
 
   --secondary-900: #040815;
@@ -35,7 +51,7 @@
   --information-300: #98D3FF;
   --information-200: #BAE5FF;
   --information-100: #DCF3FF;
-  
+
   --text-s-1: 72px;
   --text-s-2: 40px;
   --text-s-3: 36px;
@@ -83,7 +99,6 @@
   --color-information-200: #BAE5FF;
   --color-information-100: #DCF3FF;
 
-
   --text-s-1: 72px;
   --text-s-2: 40px;
   --text-s-3: 36px;
@@ -96,21 +111,58 @@
   --text-s-10: 12px;
 }
 
-/* ==========================================================================
-   LOGO
-   ========================================================================== */
-.logo {
-  color: var(--primary-500);
-  font-size: 32px;          /* проверь, что var(--text-s-4) = 32px */
-  font-weight: 700;
-  letter-spacing: -0.03em;  /* -0.96px, как в Figma */
-  line-height: 1;   
-  margin-right: 16px;        /* 32px, как в хедере */
-}
 
 /* ==========================================================================
-   ADVERTISMENT
+   2. SHARED
    ========================================================================== */
+
+/* --- Buttons --- */
+
+.btn {
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ==========================================================================
+   3. LAYOUT
+   ========================================================================== */
+
+/* --- Header --- */
+
+.logo {
+  color: var(--primary-500);
+  font-size: 32px;          /* = var(--text-s-4) */
+  font-weight: 700;
+  letter-spacing: -0.03em;  /* -0.96px, как в Figma */
+  line-height: 1;
+  margin-right: 16px;
+}
+
+/* --- Footer --- */
+
+.footer {
+  height: 480px;
+  width: 100%;
+  background-color: var(--white);
+}
+
+.footer-bottom-text {
+  font-size: var(--text-s-8);
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: var(--secondary-500);
+}
+
+
+/* ==========================================================================
+   4. HOME PAGE
+   ========================================================================== */
+
+/* --- Advertisement (AdvertisementSection / Advertisment) --- */
 
 .adv-bg {
   background-image: var(--ads-bg);
@@ -121,6 +173,22 @@
   background-repeat: no-repeat;
 }
 
+.adv-title {
+  max-width: 372px;
+  font-size: var(--text-s-4);
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: -0.03em;
+}
+
+.adv-text {
+  font-size: var(--text-s-8);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  max-width: 280px;
+}
+
 .adv-1 {
   --ads-bg: url("/adv-1.svg");
 }
@@ -129,10 +197,20 @@
   --ads-bg: url("/adv-2.svg");
 }
 
-/* ==========================================================================
-   Filter-Bars
-   ========================================================================== */
-   
+.adv-1 h2, .adv-2 h2 {
+  max-width: 272px;
+}
+
+.adv-3 {
+  --ads-bg: url("/adv-3.svg");
+  width: 492px;
+}
+.adv-3 div h2 {
+  max-width: 372px;
+}
+
+/* --- Rental details (RentalDetailsSection / Form / Item) --- */
+
 .r-details-form {
   width: 582px;
   height: 132px;
@@ -145,14 +223,8 @@
   margin: 0 -0.5px;
   background-color: var(--secondary-200);
 }
-/* ==========================================================================
-   CAR OFFERS
-   ========================================================================== */
 
-.car-offers-container {
-  width: 1312px;
-  
-}
+/* --- Category title (CarCategorySection) --- */
 
 .cars-category-container {
   width: 100%;
@@ -165,36 +237,23 @@
   box-sizing: border-box;
   font-weight: 600;
 }
-.car-card {
-  width: 304px;
-  height: 388px;
-  border-radius: 10px;
-  background-color: var(--white);
-  padding: 24px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+
+/* --- Car offers (контейнер секции) --- */
+
+.car-offers-container {
+  width: 1312px;
 }
 
-.car-card-icon {
-  width: 24px;
-  height: 24px;
+/* --- Car cards (CarCardsList / CarCard) --- */
+
+.car-cards-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: -12px;
 }
 
-.car-card-spec {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--text-s-9);
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.02em;
-  color: var(--secondary-300);
-}
-
-/* ==========================================================================
-   CAR-CARDDS
-   ========================================================================== */
 .car-card {
   width: 304px;
   height: 388px;
@@ -218,14 +277,6 @@
   pointer-events: none;
 }
 
-.car-cards-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 32px;
-  margin-top: -12px;
-}
-
 .car-card-icon {
   width: 24px;
   height: 24px;
@@ -247,24 +298,152 @@
 }
 
 
+
+/* --- Show more (ShowMoreSection) — стили пока в Tailwind --- */
+
+
 /* ==========================================================================
-   Buttons
+   5. CATEGORY PAGE
    ========================================================================== */
 
-.btn {
-  border-radius: 4px;
+.car-details-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
-
-.footer {
-  height: 480px;
   width: 100%;
-  background-color: var(--white);
+
 }
 
+/* --- Filter sidebar --- */
+
+.filter-text {
+  font-size: var(--text-s-6);
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  color: var(--secondary-400);
+}
+
+.filter-title {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  font-size: var(--text-s-10);
+  font-weight: 600;
+  line-height: 15.12px;
+  letter-spacing: -0.02em;
+  color: var(--secondary-300);
+}
+
+/* checkbox */
+
+.filter-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  flex-shrink: 0;
+  border: 1px solid var(--secondary-300);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filter-checkbox:checked {
+  background-color: var(--primary-500);
+  border-color: var(--primary-500);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5.5 10.3l3 3 6-6.3' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* range slider (цвет заливки задаётся через --fill) */
+
+.filter-range {
+  appearance: none;
+  width: 296px;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.filter-range::-webkit-slider-runnable-track {
+  height: 12px;
+  border-radius: 12px;
+  background: linear-gradient(to right, var(--primary-500) var(--fill), var(--secondary-300) var(--fill));
+}
+
+.filter-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -4px;
+  box-sizing: border-box;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background-color: var(--primary-500);
+}
+
+.filter-range::-moz-range-track {
+  height: 12px;
+  border-radius: 12px;
+  background: linear-gradient(to right, var(--primary-500) var(--fill), var(--secondary-300) var(--fill));
+}
+
+.filter-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background-color: var(--primary-500);
+}
+
+/* --- Detail car (DetailCar) --- */
+
+.detail-car {
+  width: 492px;
+  height: 508px;
+  border-radius: 10px;
+  background-color: var(--white);
+  padding: 24px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.detail-car-spec {
+  display: flex;
+  justify-content: space-between;
+  height: 28px;
+  gap: 16px;
+  font-size: var(--text-s-6);
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
+
+.detail-car-spec-label {
+  font-weight: 400;
+  color: var(--secondary-300);
+}
+
+.detail-car-spec-value {
+  font-weight: 600;
+  color: var(--secondary-400);
+  text-align: right;
+}
+
+/* --- Car gallery (CarGallery) --- */
+
+.gallery-thumb {
+  width: 148px;
+  height: 124px;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 10px;
+  background-color: var(--white);
+  cursor: pointer;
+  transition: padding 0.2s, box-shadow 0.2s;
+}
+
+.gallery-thumb-active {
+  padding: 8px;
+  box-shadow: inset 0 0 0 2px var(--primary-500);
+}

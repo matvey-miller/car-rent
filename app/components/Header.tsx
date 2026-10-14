@@ -1,6 +1,6 @@
 export default function Header() {
     return (
-        <header className="h-[124px] w-full flex items-center bg-white">
+        <header className="h-[124px] w-full flex items-center bg-white border-[1px] border-[#C3D4E9] box-border">
 
             <div className='h-[44px] ml-[60px] mr-[32px] flex justify-between w-full gap-[64px] items-center'>
 
