@@ -1,0 +1,287 @@
+{
+  "cars": [
+    {
+      "id": "1",
+      "name": "Koenigsegg",
+      "type": "Sport",
+      "image": "cars/car1adv.svg",
+      "imageWidth": 232,
+      "imageHeight": 72,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "90L",
+      "transmission": "Manual",
+      "capacity": "2 People",
+      "pricePerDay": 99,
+      "isFavorite": true,
+      "category": "popular",
+      "description": "Koenigsegg is a hypercar built for pure speed: lightweight carbon body, precise steering and a track-ready engine."
+    },
+    {
+      "id": "2",
+      "name": "Nissan GT - R",
+      "type": "Sport",
+      "image": "cars/car2adv.svg",
+      "imageWidth": 204,
+      "imageHeight": 64,
+      "gallery": [
+        "/car-gallery/2-1.svg",
+        "/car-gallery/2-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "2 People",
+      "pricePerDay": 80,
+      "oldPricePerDay": 100,
+      "category": "popular",
+      "description": "NISMO has become the embodiment of Nissan's outstanding performance, inspired by the most unforgiving proving ground, the \"race track\"."
+    },
+    {
+      "id": "3",
+      "name": "Rolls - Royce",
+      "type": "Sedan",
+      "image": "cars/Car-1.svg",
+      "imageWidth": 220,
+      "imageHeight": 68,
+      "gallery": [
+        "/car-gallery/3-1.svg",
+        "/car-gallery/3-2.svg"
+      ],
+      "fuelCapacity": "70L",
+      "transmission": "Manual",
+      "capacity": "4 People",
+      "pricePerDay": 96,
+      "isFavorite": true,
+      "category": "popular",
+      "description": "Rolls - Royce combines a silent cabin, handcrafted interior and effortless power for the most comfortable ride in the city."
+    },
+    {
+      "id": "4",
+      "name": "Nissan GT - R",
+      "type": "Sport",
+      "image": "cars/car2adv.svg",
+      "imageWidth": 204,
+      "imageHeight": 64,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "2 People",
+      "pricePerDay": 80,
+      "oldPricePerDay": 100,
+      "category": "popular",
+      "description": "NISMO has become the embodiment of Nissan's outstanding performance, inspired by the most unforgiving proving ground, the \"race track\"."
+    },
+    {
+      "id": "5",
+      "name": "All New Rush",
+      "type": "SUV",
+      "image": "cars/Car-2.svg",
+      "imageWidth": 224,
+      "imageHeight": 100,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "70L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 72,
+      "oldPricePerDay": 80,
+      "category": "recommended",
+      "description": "All New Rush is a roomy family SUV with high seating, a large trunk and confident handling on any road."
+    },
+    {
+      "id": "6",
+      "name": "CR - V",
+      "type": "SUV",
+      "image": "cars/Car-3.svg",
+      "imageWidth": 248,
+      "imageHeight": 100,
+      "gallery": [
+        "/car-gallery/2-1.svg",
+        "/car-gallery/2-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 80,
+      "isFavorite": true,
+      "category": "recommended",
+      "description": "CR - V is a comfortable SUV with a quiet cabin, smart safety features and low fuel consumption on long trips."
+    },
+    {
+      "id": "7",
+      "name": "All New Terios",
+      "type": "SUV",
+      "image": "cars/Car-4.svg",
+      "imageWidth": 224,
+      "imageHeight": 100,
+      "gallery": [
+        "/car-gallery/3-1.svg",
+        "/car-gallery/3-2.svg"
+      ],
+      "fuelCapacity": "90L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 74,
+      "category": "recommended",
+      "description": "All New Terios is a compact SUV that is easy to park in the city and strong enough for rough roads."
+    },
+    {
+      "id": "8",
+      "name": "CR - V",
+      "type": "SUV",
+      "image": "cars/Car-5.svg",
+      "imageWidth": 248,
+      "imageHeight": 100,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 80,
+      "isFavorite": true,
+      "category": "recommended",
+      "description": "CR - V is a comfortable SUV with a quiet cabin, smart safety features and low fuel consumption on long trips."
+    },
+    {
+      "id": "9",
+      "name": "MG ZX Exclusice",
+      "type": "Hatchback",
+      "image": "cars/Car-6.svg",
+      "imageWidth": 264,
+      "imageHeight": 108,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "70L",
+      "transmission": "Manual",
+      "capacity": "4 People",
+      "pricePerDay": 76,
+      "oldPricePerDay": 80,
+      "isFavorite": true,
+      "category": "recommended",
+      "description": "MG ZX Exclusice is a stylish hatchback with a modern interior, responsive engine and easy city driving."
+    },
+    {
+      "id": "10",
+      "name": "New MG ZS",
+      "type": "SUV",
+      "image": "cars/Car-7.svg",
+      "imageWidth": 288,
+      "imageHeight": 112,
+      "gallery": [
+        "/car-gallery/2-1.svg",
+        "/car-gallery/2-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 80,
+      "category": "recommended",
+      "description": "New MG ZS is a practical SUV with a spacious interior, high ground clearance and a smooth ride."
+    },
+    {
+      "id": "11",
+      "name": "MG ZX Excite",
+      "type": "Hatchback",
+      "image": "cars/Car-8.svg",
+      "imageWidth": 264,
+      "imageHeight": 108,
+      "gallery": [
+        "/car-gallery/3-1.svg",
+        "/car-gallery/3-2.svg"
+      ],
+      "fuelCapacity": "90L",
+      "transmission": "Manual",
+      "capacity": "4 People",
+      "pricePerDay": 74,
+      "isFavorite": true,
+      "category": "recommended",
+      "description": "MG ZX Excite is a compact hatchback that is economical, agile and comfortable for everyday trips."
+    },
+    {
+      "id": "12",
+      "name": "New MG ZS",
+      "type": "SUV",
+      "image": "cars/Car-9.svg",
+      "imageWidth": 288,
+      "imageHeight": 112,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 80,
+      "category": "recommended",
+      "description": "New MG ZS is a practical SUV with a spacious interior, high ground clearance and a smooth ride."
+    },
+    {
+      "id": "13",
+      "name": "New MG ZS",
+      "type": "SUV",
+      "image": "cars/Car-9.svg",
+      "imageWidth": 288,
+      "imageHeight": 112,
+      "gallery": [
+        "/car-gallery/1-1.svg",
+        "/car-gallery/1-2.svg"
+      ],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "6 People",
+      "pricePerDay": 80,
+      "category": "recommended",
+      "description": "New MG ZS is a practical SUV with a spacious interior, high ground clearance and a smooth ride."
+    }
+  ],
+  "reviews": [
+    {
+      "id": "review-1",
+      "carId": "1",
+      "user": {
+        "name": "Alex Johnson",
+        "avatar": "/users/alex.svg",
+        "role": "Verified customer"
+      },
+      "rating": 5,
+      "comment": "Amazing car, very comfortable and powerful. The rental process was easy.",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "review-2",
+      "carId": "1",
+      "user": {
+        "name": "Daniel Smith",
+        "avatar": "/users/daniel.svg",
+        "role": "Verified customer"
+      },
+      "rating": 4,
+      "comment": "Great driving experience. The car was clean and ready on time.",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "review-3",
+      "carId": "2",
+      "user": {
+        "name": "Michael Brown",
+        "avatar": "/users/michael.svg",
+        "role": "Verified customer"
+      },
+      "rating": 5,
+      "comment": "Excellent handling and a smooth rental experience.",
+      "date": "2026-10-02"
+    }
+  ],
+  "rentals": []
+}

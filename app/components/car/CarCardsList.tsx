@@ -1,15 +1,16 @@
-import { recommendedCars, popularCars } from "../../data/cars"
 import CarCard from "./CarCard"
+import { getCars } from "../../lib/api"
 
-interface CarCategorySectionProps {
+interface CarCardsListProps {
     category: "popular" | "recommended";
 }
 
-export default function CarCardsList({ category }: CarCategorySectionProps) {
+export default async function CarCardsList({ category }: CarCardsListProps) {
+    const cars = await getCars(category, category === "popular" ? 4 : 8)
+
     return (
         <div className="car-cards-container">
-            {category === "popular" ? popularCars.slice(0, 4).map((car) => <CarCard key={car.id} car={car} />)
-             : recommendedCars.slice(0, 8).map((car) => <CarCard key={car.id} car={car}/>)}
+            {cars.map((car) => <CarCard key={car.id} car={car} />)}
         </div>
     )
 }

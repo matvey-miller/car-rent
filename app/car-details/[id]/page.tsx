@@ -1,25 +1,33 @@
+import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import FilterSidebar from "../../components/filter/FilterSideBar"
 import DetailCar from "../../components/car/DetailCar"
 import CarGallery from "../../components/car/CarGallery"
-import { popularCars, recommendedCars } from "../../data/cars"
-import { Suspense } from "react"
+import ReviewsSection from "../../components/reviews/ReviewsSection"
+import { getCar, getReviews } from "../../lib/api"
 
-export default function CarDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+export default function CarDetailsPage({params}: {params: Promise<{ id: string }>}) {
     return (
-        <Suspense>
-            <CarDetails params={params} />
+        <Suspense fallback={<p>Loading car details...</p>}>
+            <CarDetailsContent params={params} />
         </Suspense>
     )
 }
 
-const allCars = [...popularCars, ...recommendedCars]
-
-async function CarDetails({ params }: { params: Promise<{ id: string }> }) {
+async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
     const { id } = await params
-    const selectedCar = allCars.find((car) => car.id === id)
 
-    if (!selectedCar) notFound()
+    const car = await getCar(id)
+    if (!car) notFound()
+
+    const reviews = await getReviews(id)
+    
+    const rating = reviews.length
+        ? Math.round(
+              reviews.reduce((sum, review) => sum + review.rating, 0) /
+                  reviews.length
+          )
+        : 0
 
     return (
         <div className="flex">
@@ -27,9 +35,15 @@ async function CarDetails({ params }: { params: Promise<{ id: string }> }) {
 
             <main className="flex-1 flex flex-col gap-[32px] p-[32px]">
                 <div className="flex gap-[32px]">
-                    <CarGallery key={`gallery-${selectedCar.id}`} car={selectedCar} />
-                    <DetailCar key={`detail-${selectedCar.id}`} car={selectedCar} />
+                    <CarGallery car={car} />
+                    <DetailCar
+                        car={car}
+                        rating={rating}
+                        reviewsCount={reviews.length}
+                    />
                 </div>
+
+                <ReviewsSection carId={id} reviews={reviews} />
             </main>
         </div>
     )

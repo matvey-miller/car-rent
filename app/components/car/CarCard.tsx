@@ -3,6 +3,7 @@
 import { useState } from "react"
 import type { Car } from "../../data/cars"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 interface CarCardProps {
     car: Car;
@@ -68,9 +69,9 @@ export default function CarCard({ car }: CarCardProps) {
                         </p>
                     )}
                 </div>
-                <button className="btn bg-primary-500 w-[116px] h-[44px] px-[20px] text-s-8 font-semibold tracking-[-0.02em] text-white">
+                <Link href={`/cars/${car.id}`} className="btn bg-primary-500 w-[116px] h-[44px] px-[20px] text-s-8 font-semibold tracking-[-0.02em] text-white">
                     Rent Now
-                </button>
+                </Link>
             </div>
 
         </div>

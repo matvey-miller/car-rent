@@ -8,12 +8,12 @@ export default function Header() {
 
                 <form className="flex w-[492px] h-[44px] items-center justify-between rounded-[70px] border border-secondary-200 px-[20px]">
                     <div className="flex items-center gap-[20px] flex-1 mr-[20px]">
-                        <img src="header/search-normal.svg" alt="" className="w-[24px] h-[24px]" />
+                        <img src="/header/search-normal.svg" alt="" className="w-[24px] h-[24px]" />
 
                         <input type="text" placeholder="Search something here" className='outline-none flex-1 text-s-9 tracking-[-0.02em] text-secondary-400' />
                     </div>
 
-                    <img src="header/filter.svg" alt="" className="w-[24px] h-[24px]" />
+                    <img src="/header/filter.svg" alt="" className="w-[24px] h-[24px]" />
                 </form>
 
                 <div className="ml-auto flex items-center gap-[20px]">

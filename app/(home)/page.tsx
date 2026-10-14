@@ -1,4 +1,4 @@
-"use client"
+
 
 import AdvertismentSection from "../components/advertisment/AdvertisementSection"
 import RentalDetailsSection from "../components/rental-details/RentalDetailsSection"

@@ -4,11 +4,7 @@ import { useState } from "react"
 import type { Car } from "../../data/cars"
 import Advertisement from "../advertisment/Advertisement"
 
-interface CarGalleryProps {
-    car: Car;
-}
-
-export default function CarGallery({ car }: CarGalleryProps) {
+export default function CarGallery({ car }: { car: Car }) {
     const [selected, setSelected] = useState(0)
     const carSrc = `/${car.image}`
 
@@ -25,16 +21,22 @@ export default function CarGallery({ car }: CarGalleryProps) {
             )}
 
             <div className="flex gap-[24px]">
-                {[0, 1, 2].map((index) => (
+                {[0, ...car.gallery.map((_, index) => index + 1)].map((index) => (
                     <button
                         key={index}
                         type="button"
                         onClick={() => setSelected(index)}
-                        className={`gallery-thumb ${index === selected ? "gallery-thumb-active" : ""}`}
+                        className={`gallery-thumb ${
+                            index === selected ? "gallery-thumb-active" : ""
+                        }`}
                     >
                         {index === 0 ? (
                             <div className="w-full h-full rounded-[10px] flex items-center justify-center bg-[url('/car-gallery/image-1-bg.svg')] bg-cover bg-center">
-                                <img src={carSrc} alt={car.name} className="w-[116px] h-[36px] object-contain" />
+                                <img
+                                    src={carSrc}
+                                    alt={car.name}
+                                    className="w-[116px] h-[36px] object-contain"
+                                />
                             </div>
                         ) : (
                             <img
