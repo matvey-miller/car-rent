@@ -69,7 +69,7 @@ export default function CarCard({ car }: CarCardProps) {
                         </p>
                     )}
                 </div>
-                <Link href={`/cars/${car.id}`} className="btn bg-primary-500 w-[116px] h-[44px] px-[20px] text-s-8 font-semibold tracking-[-0.02em] text-white">
+                <Link href={`/car-details/${car.id}`} className="btn bg-primary-500 w-[116px] h-[44px] px-[20px] text-s-8 font-semibold tracking-[-0.02em] text-white">
                     Rent Now
                 </Link>
             </div>

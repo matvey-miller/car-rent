@@ -224,6 +224,13 @@
   background-color: var(--secondary-200);
 }
 
+/* Rental details на странице категорий: формы уже, swap поверх них */
+.r-details-compact .r-details-form {
+  width: 486px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 /* --- Category title (CarCategorySection) --- */
 
 .cars-category-container {

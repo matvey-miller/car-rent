@@ -1,6 +1,12 @@
 import type { Car } from "../data/cars"
 import type { Review, NewReview } from "../data/reviews"
 
+export interface CarFilters {
+    types: string[];
+    capacities: string[];
+    maxPrice?: number;
+}
+
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"
 
 export async function getCars(category: Car["category"], limit: number): Promise<Car[]> {
@@ -25,4 +31,39 @@ export async function postReview(review: NewReview): Promise<void> {
         body: JSON.stringify(review),
     })
     if (!res.ok) throw new Error("Failed to send review")
+}
+
+export const CARS_PER_PAGE = 9
+
+
+// "8" в фильтре = "8 or More"; в базе вместимость хранится строкой "2 People"
+function capacityPattern(capacities: string[]): string {
+    const parts = capacities.map((value) => (value === "8" ? "[89]|\\d{2,}" : value))
+    return `^(${parts.join("|")}) People$`
+}
+
+export async function getCarsPage(limit: number, filters: CarFilters): Promise<{ cars: Car[]; total: number }> {
+    const query = new URLSearchParams({ _limit: String(limit) })
+
+    filters.types.forEach((type) => query.append("type", type))
+
+    // в регулярку попадают только цифры, чтобы из адреса нельзя было подсунуть свой паттерн
+    const capacities = filters.capacities.filter((value) => /^\d+$/.test(value))
+    if (capacities.length > 0) {
+        query.set("capacity_like", capacityPattern(capacities))
+    }
+    if (filters.maxPrice) {
+        query.set("pricePerDay_lte", String(filters.maxPrice))
+    }
+
+    const res = await fetch(`${API_URL}/cars?${query}`, { cache: "no-store" })
+    return {
+        cars: await res.json(),
+        total: Number(res.headers.get("X-Total-Count")),
+    }
+}
+
+export async function getCarsCount(): Promise<number> {
+    const res = await fetch(`${API_URL}/cars?_limit=1`, { cache: "force-cache" })
+    return Number(res.headers.get("X-Total-Count"))
 }

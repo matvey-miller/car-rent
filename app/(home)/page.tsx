@@ -5,9 +5,11 @@ import RentalDetailsSection from "../components/rental-details/RentalDetailsSect
 import CarsCategorySection from "../components/car/CarCategorySection"
 import CarCardsList from "../components/car/CarCardsList"
 import ShowMoreSection from "../components/ShowMoreSection"
+import { getCarsCount } from "../lib/api"
 
 
-export default function Home() {
+export default async function Home() {
+    const total = await getCarsCount()
     return(
         <div className="flex flex-col gap-[32px] my-[32px]">
             <div className="flex flex-col gap-[32px] w-[1312px] m-auto">
@@ -18,7 +20,7 @@ export default function Home() {
                 <CarCardsList category="popular" limit={4} className="car-cards-container-wide"/>
                 <CarsCategorySection title="Recommended Car"/>
                 <CarCardsList category="recommended" limit={8} className="car-cards-container-wide"/>
-                <ShowMoreSection/>
+                <ShowMoreSection href="/category" total={total}/>
                 
             </div>
         </div>

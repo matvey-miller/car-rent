@@ -1,15 +1,44 @@
 'use client'
 
 import { useState, CSSProperties } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { categoryUrl } from "../../lib/categoryUrl"
 
 // подобрано так, чтобы значение 100 совпадало с макетом (маркер на 220px)
 const MAX_PRICE = 131.43;
+const DEFAULT_PRICE = 100;
 
 export default function FilterPrice() {
-    const [price, setPrice] = useState(100);
+    const router = useRouter()
+    const searchParams = useSearchParams()
+
+    const urlPrice = Number(searchParams.get("maxPrice")) || DEFAULT_PRICE
+
+    const [price, setPrice] = useState(urlPrice)
+    const [prevUrlPrice, setPrevUrlPrice] = useState(urlPrice)
+
+    // адрес поменялся снаружи (кнопка «Назад», переход с другой страницы) — подтягиваем ползунок
+    if (urlPrice !== prevUrlPrice) {
+        setPrevUrlPrice(urlPrice)
+        setPrice(urlPrice)
+    }
 
     // центр маркера: 10px (радиус) + путь по треку 296 - 20 = 276px
     const fill = 10 + (price / MAX_PRICE) * 276;
+
+    function applyPrice() {
+        if (price === urlPrice) return
+
+        const params = new URLSearchParams(searchParams.toString())
+        if (price === DEFAULT_PRICE) {
+            params.delete("maxPrice")
+        } else {
+            params.set("maxPrice", String(price))
+        }
+        params.delete("limit")
+
+        router.push(categoryUrl(params), { scroll: false })
+    }
 
     return (
         <section className="flex flex-col gap-[28px]">
@@ -23,6 +52,8 @@ export default function FilterPrice() {
                     step={1}
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
+                    onPointerUp={applyPrice}
+                    onKeyUp={applyPrice}
                     className="filter-range"
                     style={{ "--fill": `${fill}px` } as CSSProperties}
                 />
