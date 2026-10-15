@@ -1,15 +1,18 @@
 import CarCard from "./CarCard"
 import { getCars } from "../../lib/api"
+import type { Car } from "../../data/cars"
 
 interface CarCardsListProps {
-    category: "popular" | "recommended";
+    category: Car["category"];
+    limit: number;
+    className?: string;
 }
 
-export default async function CarCardsList({ category }: CarCardsListProps) {
-    const cars = await getCars(category, category === "popular" ? 4 : 8)
+export default async function CarCardsList({ category, limit, className }: CarCardsListProps) {
+    const cars = await getCars(category, limit)
 
     return (
-        <div className="car-cards-container">
+        <div className={`car-cards-container ${className || ""}`}>
             {cars.map((car) => <CarCard key={car.id} car={car} />)}
         </div>
     )

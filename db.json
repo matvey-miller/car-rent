@@ -8,8 +8,8 @@
       "imageWidth": 232,
       "imageHeight": 72,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
@@ -46,8 +46,8 @@
       "imageWidth": 220,
       "imageHeight": 68,
       "gallery": [
-        "/car-gallery/3-1.svg",
-        "/car-gallery/3-2.svg"
+        "/car-gallery/3-1.jpg",
+        "/car-gallery/3-2.jpg"
       ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
@@ -65,8 +65,8 @@
       "imageWidth": 204,
       "imageHeight": 64,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -84,8 +84,8 @@
       "imageWidth": 224,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
@@ -122,8 +122,8 @@
       "imageWidth": 224,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/3-1.svg",
-        "/car-gallery/3-2.svg"
+        "/car-gallery/3-1.jpg",
+        "/car-gallery/3-2.jpg"
       ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
@@ -140,8 +140,8 @@
       "imageWidth": 248,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -159,8 +159,8 @@
       "imageWidth": 264,
       "imageHeight": 108,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
@@ -197,8 +197,8 @@
       "imageWidth": 264,
       "imageHeight": 108,
       "gallery": [
-        "/car-gallery/3-1.svg",
-        "/car-gallery/3-2.svg"
+        "/car-gallery/3-1.jpg",
+        "/car-gallery/3-2.jpg"
       ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
@@ -216,8 +216,8 @@
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -234,8 +234,8 @@
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
-        "/car-gallery/1-1.svg",
-        "/car-gallery/1-2.svg"
+        "/car-gallery/1-1.jpg",
+        "/car-gallery/1-2.jpg"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -243,6 +243,53 @@
       "pricePerDay": 80,
       "category": "recommended",
       "description": "New MG ZS is a practical SUV with a spacious interior, high ground clearance and a smooth ride."
+    },
+        {
+      "id": "14",
+      "name": "Koenigsegg",
+      "type": "Sport",
+      "image": "cars/car1adv.svg",
+      "imageWidth": 232,
+      "imageHeight": 72,
+      "gallery": ["/car-gallery/1-1.jpg", "/car-gallery/1-2.jpg"],
+      "fuelCapacity": "90L",
+      "transmission": "Manual",
+      "capacity": "2 People",
+      "pricePerDay": 99,
+      "isFavorite": true,
+      "category": "recent",
+      "description": "Koenigsegg is a hypercar built for pure speed: lightweight carbon body, precise steering and a track-ready engine."
+    },
+    {
+      "id": "15",
+      "name": "Nissan GT - R",
+      "type": "Sport",
+      "image": "cars/car2adv.svg",
+      "imageWidth": 204,
+      "imageHeight": 64,
+      "gallery": ["/car-gallery/2-1.svg", "/car-gallery/2-2.svg"],
+      "fuelCapacity": "80L",
+      "transmission": "Manual",
+      "capacity": "2 People",
+      "pricePerDay": 80,
+      "oldPricePerDay": 100,
+      "category": "recent",
+      "description": "NISMO has become the embodiment of Nissan's outstanding performance, inspired by the most unforgiving proving ground, the \"race track\"."
+    },
+    {
+      "id": "16",
+      "name": "Rolls-Royce",
+      "type": "Sport",
+      "image": "cars/Car-1.svg",
+      "imageWidth": 220,
+      "imageHeight": 68,
+      "gallery": ["/car-gallery/3-1.jpg", "/car-gallery/3-2.jpg"],
+      "fuelCapacity": "70L",
+      "transmission": "Manual",
+      "capacity": "4 People",
+      "pricePerDay": 96,
+      "category": "recent",
+      "description": "Rolls - Royce combines a silent cabin, handcrafted interior and effortless power for the most comfortable ride in the city."
     }
   ],
   "reviews": [
@@ -251,7 +298,7 @@
       "carId": "1",
       "user": {
         "name": "Alex Johnson",
-        "avatar": "/users/alex.svg",
+        "avatar": "/users/default.svg",
         "role": "Verified customer"
       },
       "rating": 5,
@@ -263,7 +310,7 @@
       "carId": "1",
       "user": {
         "name": "Daniel Smith",
-        "avatar": "/users/daniel.svg",
+        "avatar": "/users/default.svg",
         "role": "Verified customer"
       },
       "rating": 4,
@@ -275,13 +322,14 @@
       "carId": "2",
       "user": {
         "name": "Michael Brown",
-        "avatar": "/users/michael.svg",
+        "avatar": "/users/default.svg",
         "role": "Verified customer"
       },
       "rating": 5,
       "comment": "Excellent handling and a smooth rental experience.",
       "date": "2026-10-02"
     }
+    
   ],
   "rentals": []
 }

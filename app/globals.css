@@ -249,13 +249,18 @@
 .car-cards-container {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
   margin-top: -12px;
 }
 
+/* Home: страница без сайдбара, контейнер 1312px, 4 колонки */
+.car-cards-container-wide {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .car-card {
-  width: 304px;
+  width: 100%;          /* было 304px: ширину теперь задаёт сетка */
   height: 388px;
   border-radius: 10px;
   background-color: var(--white);
@@ -265,6 +270,8 @@
   flex-direction: column;
   position: relative;
 }
+
+
 
 .car-card::after {
   content: "";
@@ -481,4 +488,10 @@
   font-size: var(--text-s-10);
   font-weight: 500;
   color: #FF4423;
+}
+
+.review-field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

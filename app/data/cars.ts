@@ -2,7 +2,7 @@ export interface Car {
   id: string;
   name: string;
   type: string;
-  category: "popular" | "recommended";
+  category: "popular" | "recommended" | "recent";
   description: string;
   image: string;
   imageWidth: number;

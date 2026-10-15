@@ -15,9 +15,9 @@ export default function Home() {
                 <AdvertismentSection/>
                 <RentalDetailsSection/>
                 <CarsCategorySection title="Popular Car" buttonLabel="View All" className="mt-[4px]"/>
-                <CarCardsList category="popular"/>
+                <CarCardsList category="popular" limit={4} className="car-cards-container-wide"/>
                 <CarsCategorySection title="Recommended Car"/>
-                <CarCardsList category="recommended"/>
+                <CarCardsList category="recommended" limit={8} className="car-cards-container-wide"/>
                 <ShowMoreSection/>
                 
             </div>

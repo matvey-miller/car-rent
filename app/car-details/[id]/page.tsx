@@ -5,10 +5,12 @@ import DetailCar from "../../components/car/DetailCar"
 import CarGallery from "../../components/car/CarGallery"
 import ReviewsSection from "../../components/reviews/ReviewsSection"
 import { getCar, getReviews } from "../../lib/api"
+import CarCategorySection from "../../components/car/CarCategorySection"
+import CarCardsList from "../../components/car/CarCardsList"
 
 export default function CarDetailsPage({params}: {params: Promise<{ id: string }>}) {
     return (
-        <Suspense fallback={<p>Loading car details...</p>}>
+        <Suspense fallback={<p className="text-s-3 font-medium text-secondary-300 min-h-[500px]">Loading car details...</p>}>
             <CarDetailsContent params={params} />
         </Suspense>
     )
@@ -44,6 +46,12 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
                 </div>
 
                 <ReviewsSection carId={id} reviews={reviews} />
+
+                <CarCategorySection title="Recent Car" buttonLabel="View All" />
+                <CarCardsList category="recent" limit={3}  />
+
+                <CarCategorySection title="Recommendation Car" buttonLabel="View All" />
+                <CarCardsList category="recommended" limit={3} />
             </main>
         </div>
     )

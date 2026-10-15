@@ -28,6 +28,10 @@ export default function ReviewForm({ carId }: { carId: string }) {
         return result
     }
 
+    function clearError(field: keyof FormErrors) {
+        setErrors((errors) => ({ ...errors, [field]: undefined }))
+    }
+
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
 
@@ -59,23 +63,26 @@ export default function ReviewForm({ carId }: { carId: string }) {
         <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-[24px]">
             <h3 className="text-s-6 font-bold leading-[30px] tracking-[-0.02em] text-secondary-500">Leave a review</h3>
 
-            <div className="flex flex-col gap-[8px]">
+            <div className="review-field-wrap">
                 <input
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => {
+                        setName(e.target.value)
+                        clearError("name")
+                    }}
                     placeholder="Your name"
                     className={`review-field h-[56px] ${errors.name ? "review-field-error" : ""}`}
                 />
                 {errors.name && <span className="review-error">{errors.name}</span>}
             </div>
 
-            <div className="flex flex-col gap-[8px]">
+            <div className="review-field-wrap">
                 <div className="flex items-center gap-[12px]">
                     <span className="text-s-9 font-semibold tracking-[-0.02em] text-secondary-400">Rating</span>
                     <div className="flex gap-[2px]">
                         {[1, 2, 3, 4, 5].map((n) => (
-                            <button key={n} type="button" onClick={() => setRating(n)} aria-label={`${n} stars`}>
+                            <button key={n} type="button" onClick={() => {setRating(n); clearError("rating")}} aria-label={`${n} stars`}>
                                 <img
                                     src={n <= rating ? "/buttons/star-filled.svg" : "/buttons/star-empty.svg"}
                                     alt=""
@@ -88,10 +95,10 @@ export default function ReviewForm({ carId }: { carId: string }) {
                 {errors.rating && <span className="review-error">{errors.rating}</span>}
             </div>
 
-            <div className="flex flex-col gap-[8px]">
+            <div className="review-field-wrap">
                 <textarea
                     value={comment}
-                    onChange={(e) => setComment(e.target.value)}
+                    onChange={(e) => {setComment(e.target.value); clearError("comment")}}
                     placeholder="Write your review"
                     className={`review-field h-[120px] py-[16px] resize-none ${errors.comment ? "review-field-error" : ""}`}
                 />
