@@ -190,12 +190,8 @@
 /* --- Advertisement (AdvertisementSection / Advertisment) --- */
 
 .adv-bg {
-  background-image: var(--ads-bg);
   height: 360px;
   width: 640px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .adv-title {
@@ -214,22 +210,15 @@
   max-width: 280px;
 }
 
-.adv-1 {
-  --ads-bg: url("/adv/adv-1.svg");
-}
-
-.adv-2 {
-  --ads-bg: url("/adv/adv-2.svg");
+.adv-3 {
+  width: 492px;
 }
 
 .adv-1 h2, .adv-2 h2 {
   max-width: 272px;
 }
 
-.adv-3 {
-  --ads-bg: url("/adv/adv-3.svg");
-  width: 492px;
-}
+
 .adv-3 div h2 {
   max-width: 372px;
 }

@@ -1,35 +1,43 @@
-'use client'
+"use client"
+import { Checkboxes } from "../../data/filters"
+import FilterCheckbox from "../filter/FilterCheckbox";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { categoryUrl } from "../../lib/categoryUrl";
 
-import { useRouter, useSearchParams } from "next/navigation"
-import { FilterOption } from "../../data/filters"
-import FilterCheckbox from "./FilterCheckbox"
-import { categoryUrl } from "../../lib/categoryUrl"
 
 interface FilterSectionProps {
     title: string;
-    param: string;
-    options: FilterOption[];
+    type: string;
+    checkboxes: Checkboxes[];
 }
 
-export default function FilterSection({ title, param, options }: FilterSectionProps) {
+export default function FilterSection ({title, type, checkboxes} : FilterSectionProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
 
-    const selected = searchParams.getAll(param)
+    const [selected, setSelected] = useState(searchParams.getAll(type))
 
-    function toggle(name: string) {
-        const next = selected.includes(name)
-            ? selected.filter((value) => value !== name) //если выделенный значок -> удаляем из массива
-            : [...selected, name] //Иначе добавляем к текущему массиву нажатых
+    useEffect( () =>
+    {setSelected(searchParams.getAll(type))},
+    [searchParams])
+    
 
+    function toggle(currentFilter : string) {
+        const updatedFilter = selected.includes(currentFilter)
+            ? selected.filter((filter) => filter !== currentFilter)
+            : [...selected, currentFilter]
+
+        setSelected(updatedFilter)
+
+        //create a new URL
         const params = new URLSearchParams(searchParams.toString())
-        params.delete(param)
-        next.forEach((value) => params.append(param, value))
-        params.delete("limit") // новый филтр = новые машины
-        //если не сбросить лимит, то база попробует выкинуть столько машин, сколько было до этого 
-        //например был (limit=27 а по выбранному фильтру всего 3 машины -> лищняя нагрузка)
+        params.delete(type)
+        updatedFilter.forEach((filter) => (params.append(type, filter)))
+        params.delete("limit")
 
-        router.push(categoryUrl(params), { scroll: false })
+        router.push(categoryUrl(params), {scroll: false})
+        
     }
 
     return (
@@ -37,15 +45,16 @@ export default function FilterSection({ title, param, options }: FilterSectionPr
             <h3 className="filter-title">{title}</h3>
 
             <div className="flex flex-col gap-[32px]">
-                {options.map((option) => (
+                {checkboxes.map((checkbox) => (
                     <FilterCheckbox
-                        key={option.id}
-                        name={option.name}
-                        count={option.count}
-                        checked={selected.includes(option.value)}
-                        onChange={() => toggle(option.value)}
+                        key={checkbox.id}
+                        name={checkbox.name}
+                        count={checkbox.count}
+                        checked={selected.includes(checkbox.value)}
+                        onChange={() => toggle(checkbox.value)}
                     />
                 ))}
+                
             </div>
         </section>
     )
