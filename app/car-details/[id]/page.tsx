@@ -4,13 +4,17 @@ import FilterSidebar from "../../components/filter/FilterSideBar"
 import DetailCar from "../../components/car/DetailCar"
 import CarGallery from "../../components/car/CarGallery"
 import ReviewsSection from "../../components/reviews/ReviewsSection"
-import { getCar, getReviews } from "../../lib/api"
+import { getCar, getReviews, getCars, getCarsByIds } from "../../lib/api"
 import CarCategorySection from "../../components/car/CarCategorySection"
-import CarCardsList from "../../components/car/CarCardsList"
+import { cookies } from "next/headers"
+import CarCardsGrid from "../../components/car/CarCardsGrid"
+import RecentTracker from "../../components/car/RecentTracker"
+import { RECENT_COOKIE, RECENT_LIMIT, parseRecent } from "../../lib/recent"
+import CarDetailsSkeleton from "../../components/skeleton/CarDetailsSkeleton"
 
 export default function CarDetailsPage({params}: {params: Promise<{ id: string }>}) {
     return (
-        <Suspense fallback={<p className="text-s-3 font-medium text-secondary-300 min-h-[500px]">Loading car details...</p>}>
+        <Suspense fallback={<CarDetailsSkeleton />}>
             <CarDetailsContent params={params} />
         </Suspense>
     )
@@ -31,28 +35,44 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
           )
         : 0
 
+    const cookieStore = await cookies()
+    const recentIds = parseRecent(cookieStore.get(RECENT_COOKIE)?.value)
+        .filter((recentId) => recentId !== id)
+        .slice(0, RECENT_LIMIT)
+
+    const [recentCars, recommendedCars] = await Promise.all([
+        getCarsByIds(recentIds.slice(0, 3)),
+        getCars("recommended", 4),
+    ])
+
+    const recentParams = new URLSearchParams(recentIds.map((recentId) => ["id", recentId]))
+
     return (
-        <div className="flex">
+        <div className="flex fade-in">
             <FilterSidebar />
 
-            <main className="flex-1 flex flex-col gap-[32px] p-[32px]">
+            <div className="flex-1 flex flex-col gap-[32px] p-[32px]">
+                <RecentTracker carId={id} />
+
                 <div className="flex gap-[32px]">
                     <CarGallery car={car} />
-                    <DetailCar
-                        car={car}
-                        rating={rating}
-                        reviewsCount={reviews.length}
-                    />
+                    <DetailCar car={car} rating={rating} reviewsCount={reviews.length} />
                 </div>
 
                 <ReviewsSection carId={id} reviews={reviews} />
 
-                <CarCategorySection title="Recent Car" buttonLabel="View All" />
-                <CarCardsList category="recent" limit={3}  />
+                {recentCars.length > 0 && (
+                    <section className="flex flex-col gap-[20px]">
+                        <CarCategorySection title="Recent Car" action={{buttonLabel: "View All", href: `/category?${recentParams}`}} />
+                        <CarCardsGrid cars={recentCars} />
+                    </section>
+                )}
 
-                <CarCategorySection title="Recommendation Car" buttonLabel="View All" />
-                <CarCardsList category="recommended" limit={3} />
-            </main>
+                <section className="flex flex-col gap-[20px]">
+                    <CarCategorySection title="Recommendation Car" action={{buttonLabel: "View All", href: "/category?category=recommended"}} />
+                    <CarCardsGrid cars={recommendedCars.filter((c) => c.id !== id).slice(0, 3)} />
+                </section>
+            </div>
         </div>
     )
 }

@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Koenigsegg",
       "type": "Sport",
-      "image": "cars/car1adv.svg",
+      "image": "cars/car1adv.png",
       "imageWidth": 232,
       "imageHeight": 72,
       "gallery": [
@@ -23,12 +23,12 @@
       "id": "2",
       "name": "Nissan GT - R",
       "type": "Sport",
-      "image": "cars/car2adv.svg",
+      "image": "cars/car2adv.png",
       "imageWidth": 204,
       "imageHeight": 64,
       "gallery": [
-        "/car-gallery/2-1.svg",
-        "/car-gallery/2-2.svg"
+        "/car-gallery/2-1.png",
+        "/car-gallery/2-2.png"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -42,7 +42,7 @@
       "id": "3",
       "name": "Rolls - Royce",
       "type": "Sedan",
-      "image": "cars/Car-1.svg",
+      "image": "cars/Car-1.png",
       "imageWidth": 220,
       "imageHeight": 68,
       "gallery": [
@@ -61,7 +61,7 @@
       "id": "4",
       "name": "Nissan GT - R",
       "type": "Sport",
-      "image": "cars/car2adv.svg",
+      "image": "cars/car2adv.png",
       "imageWidth": 204,
       "imageHeight": 64,
       "gallery": [
@@ -80,7 +80,7 @@
       "id": "5",
       "name": "All New Rush",
       "type": "SUV",
-      "image": "cars/Car-2.svg",
+      "image": "cars/Car-2.png",
       "imageWidth": 224,
       "imageHeight": 100,
       "gallery": [
@@ -99,12 +99,12 @@
       "id": "6",
       "name": "CR - V",
       "type": "SUV",
-      "image": "cars/Car-3.svg",
+      "image": "cars/Car-3.png",
       "imageWidth": 248,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/2-1.svg",
-        "/car-gallery/2-2.svg"
+        "/car-gallery/2-1.png",
+        "/car-gallery/2-2.png"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -118,7 +118,7 @@
       "id": "7",
       "name": "All New Terios",
       "type": "SUV",
-      "image": "cars/Car-4.svg",
+      "image": "cars/Car-4.png",
       "imageWidth": 224,
       "imageHeight": 100,
       "gallery": [
@@ -136,7 +136,7 @@
       "id": "8",
       "name": "CR - V",
       "type": "SUV",
-      "image": "cars/Car-5.svg",
+      "image": "cars/Car-5.png",
       "imageWidth": 248,
       "imageHeight": 100,
       "gallery": [
@@ -155,7 +155,7 @@
       "id": "9",
       "name": "MG ZX Exclusice",
       "type": "Hatchback",
-      "image": "cars/Car-6.svg",
+      "image": "cars/Car-6.png",
       "imageWidth": 264,
       "imageHeight": 108,
       "gallery": [
@@ -175,12 +175,12 @@
       "id": "10",
       "name": "New MG ZS",
       "type": "SUV",
-      "image": "cars/Car-7.svg",
+      "image": "cars/Car-7.png",
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
-        "/car-gallery/2-1.svg",
-        "/car-gallery/2-2.svg"
+        "/car-gallery/2-1.png",
+        "/car-gallery/2-2.png"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -193,7 +193,7 @@
       "id": "11",
       "name": "MG ZX Excite",
       "type": "Hatchback",
-      "image": "cars/Car-8.svg",
+      "image": "cars/Car-8.png",
       "imageWidth": 264,
       "imageHeight": 108,
       "gallery": [
@@ -212,7 +212,7 @@
       "id": "12",
       "name": "New MG ZS",
       "type": "SUV",
-      "image": "cars/Car-9.svg",
+      "image": "cars/Car-9.png",
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
@@ -230,7 +230,7 @@
       "id": "13",
       "name": "New MG ZS",
       "type": "SUV",
-      "image": "cars/Car-9.svg",
+      "image": "cars/Car-9.png",
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
@@ -248,7 +248,7 @@
       "id": "14",
       "name": "Koenigsegg",
       "type": "Sport",
-      "image": "cars/car1adv.svg",
+      "image": "cars/car1adv.png",
       "imageWidth": 232,
       "imageHeight": 72,
       "gallery": ["/car-gallery/1-1.jpg", "/car-gallery/1-2.jpg"],
@@ -264,10 +264,10 @@
       "id": "15",
       "name": "Nissan GT - R",
       "type": "Sport",
-      "image": "cars/car2adv.svg",
+      "image": "cars/car2adv.png",
       "imageWidth": 204,
       "imageHeight": 64,
-      "gallery": ["/car-gallery/2-1.svg", "/car-gallery/2-2.svg"],
+      "gallery": ["/car-gallery/2-1.png", "/car-gallery/2-2.png"],
       "fuelCapacity": "80L",
       "transmission": "Manual",
       "capacity": "2 People",
@@ -280,7 +280,7 @@
       "id": "16",
       "name": "Rolls-Royce",
       "type": "Sport",
-      "image": "cars/Car-1.svg",
+      "image": "cars/Car-1.png",
       "imageWidth": 220,
       "imageHeight": 68,
       "gallery": ["/car-gallery/3-1.jpg", "/car-gallery/3-2.jpg"],
@@ -298,7 +298,7 @@
       "carId": "1",
       "user": {
         "name": "Alex Johnson",
-        "avatar": "/users/default.svg",
+        "avatar": "/users/default.png",
         "role": "Verified customer"
       },
       "rating": 5,
@@ -310,7 +310,7 @@
       "carId": "1",
       "user": {
         "name": "Daniel Smith",
-        "avatar": "/users/default.svg",
+        "avatar": "/users/default.png",
         "role": "Verified customer"
       },
       "rating": 4,
@@ -322,7 +322,7 @@
       "carId": "2",
       "user": {
         "name": "Michael Brown",
-        "avatar": "/users/default.svg",
+        "avatar": "/users/default.png",
         "role": "Verified customer"
       },
       "rating": 5,

@@ -9,8 +9,10 @@ export default function CarGallery({ car }: { car: Car }) {
     const carSrc = `/${car.image}`
 
     return (
+        //Big-Pictures
         <div className="flex flex-col gap-[24px]">
             {selected === 0 ? (
+                //3 is a type of advertisement
                 <Advertisement number={3} carSrc={carSrc} />
             ) : (
                 <img
@@ -20,33 +22,43 @@ export default function CarGallery({ car }: { car: Car }) {
                 />
             )}
 
+            {/* Pic-Buttons */}
             <div className="flex gap-[24px]">
-                {[0, ...car.gallery.map((_, index) => index + 1)].map((index) => (
-                    <button
-                        key={index}
-                        type="button"
-                        onClick={() => setSelected(index)}
-                        className={`gallery-thumb ${
-                            index === selected ? "gallery-thumb-active" : ""
-                        }`}
-                    >
-                        {index === 0 ? (
-                            <div className="w-full h-full rounded-[10px] flex items-center justify-center bg-[url('/car-gallery/image-1-bg.svg')] bg-cover bg-center">
-                                <img
-                                    src={carSrc}
-                                    alt={car.name}
-                                    className="w-[116px] h-[36px] object-contain"
-                                />
-                            </div>
-                        ) : (
+                {/* 1. Первая миниатюра (Превью баннера) */}
+                <button
+                    type="button"
+                    aria-label="View car banner"
+                    aria-current={selected === 0}
+                    onClick={() => setSelected(0)}
+                    className={`gallery-thumb ${selected === 0 ? "gallery-thumb-active" : ""}`}
+                >
+                    <div className="w-full h-full rounded-[10px] flex items-center justify-center bg-[url('/car-gallery/bg.svg')] bg-cover bg-center">
+                        <img src={carSrc} alt="" className="w-[78%] h-auto object-contain" />
+                    </div>
+                </button>
+
+                {/* 2. Фотографии из галереи (чистый .map без двойных массивов) */}
+                {car.gallery.map((photo, index) => {
+                    const slideIndex = index + 1;
+                    const isActive = selected === slideIndex;
+
+                    return (
+                        <button
+                            key={photo}
+                            type="button"
+                            aria-label={`View car photo ${slideIndex}`}
+                            aria-current={isActive}
+                            onClick={() => setSelected(slideIndex)}
+                            className={`gallery-thumb ${isActive ? "gallery-thumb-active" : ""}`}
+                        >
                             <img
-                                src={car.gallery[index - 1]}
+                                src={photo}
                                 alt=""
                                 className="w-full h-full rounded-[10px] object-cover"
                             />
-                        )}
-                    </button>
-                ))}
+                        </button>
+                    )
+                })}
             </div>
         </div>
     )

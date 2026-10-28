@@ -4,6 +4,9 @@ import RentalDetailsSection from "../components/rental-details/RentalDetailsSect
 import CarCardsGrid from "../components/car/CarCardsGrid"
 import ShowMoreSection from "../components/ShowMoreSection"
 import { getCarsPage, CARS_PER_PAGE } from "../lib/api"
+import { categoryUrl } from "../lib/categoryUrl"
+import CarCardsGridSkeleton from "../components/skeleton/CarCardsGridSkeleton"
+import FilterSidebarSkeleton from "../components/skeleton/FilterSidebarSkeleton"
 
 interface CategoryPageProps {
     searchParams: Promise<{
@@ -11,9 +14,10 @@ interface CategoryPageProps {
         type?: string | string[];
         capacity?: string | string[];
         maxPrice?: string;
+        category?: string;
+        id?: string | string[];
     }>;
 }
-
 
 function toArray(value?: string | string[]): string[] {
     return Array.isArray(value) ? value : value ? [value] : []
@@ -22,35 +26,44 @@ function toArray(value?: string | string[]): string[] {
 export default function CategoryPage({ searchParams }: CategoryPageProps) {
     return (
         <div className="flex">
-            <Suspense fallback={<aside className="w-[360px] bg-white" />}>
+            <Suspense fallback={<FilterSidebarSkeleton />}>
                 <FilterSidebar />
             </Suspense>
 
-            <main className="flex-1 flex flex-col gap-[36px] p-[32px]">
+            <div className="flex-1 flex flex-col gap-[36px] p-[32px]">
                 <RentalDetailsSection compact />
 
-                <Suspense fallback={<p className="text-s-3 font-medium text-secondary-300 min-h-[500px]">Loading cars...</p>}>
+                <Suspense fallback={
+                    <>
+                        <CarCardsGridSkeleton count={CARS_PER_PAGE} />
+                        <div className="h-[44px] my-[32px]" />
+                    </>
+                }>
                     <CategoryCars searchParams={searchParams} />
                 </Suspense>
-            </main>
+            </div>
         </div>
     )
 }
 
 async function CategoryCars({ searchParams }: CategoryPageProps) {
-    const { limit, type, capacity, maxPrice: maxPriceParam } = await searchParams
+    const rawParams = await searchParams
+    const { limit, type, capacity, maxPrice: maxPriceParam, category: categoryParam, id } = rawParams
 
     const count = Math.max(Number(limit) || CARS_PER_PAGE, CARS_PER_PAGE)
     const types = toArray(type)
     const capacities = toArray(capacity)
-    const maxPrice = Number(maxPriceParam) || undefined
+    const maxPrice = Number(maxPriceParam) > 0 ? Number(maxPriceParam) : undefined
+    const category = categoryParam === "popular" || categoryParam === "recommended" ? categoryParam : undefined
+    const ids = toArray(id)
 
-    const { cars, total } = await getCarsPage(count, { types, capacities, maxPrice })
+    const { cars, total } = await getCarsPage(count, { types, capacities, maxPrice, category, ids })
 
+    // Автоматически переносим все текущие параметры из URL и обновляем только limit
     const nextParams = new URLSearchParams()
-    types.forEach((value) => nextParams.append("type", value))
-    capacities.forEach((value) => nextParams.append("capacity", value))
-    if (maxPrice) nextParams.set("maxPrice", String(maxPrice))
+    for (const [key, value] of Object.entries(rawParams)) {
+        toArray(value).forEach((v) => nextParams.append(key, v))
+    }
     nextParams.set("limit", String(count + CARS_PER_PAGE))
 
     return (
@@ -62,7 +75,7 @@ async function CategoryCars({ searchParams }: CategoryPageProps) {
             )}
 
             <ShowMoreSection
-                href={cars.length < total ? `/category?${nextParams}` : undefined}
+                href={cars.length < total ? categoryUrl(nextParams) : undefined}
                 total={total}
             />
         </>

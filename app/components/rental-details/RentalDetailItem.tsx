@@ -15,15 +15,15 @@ export default function RentalDetailItem({ headline, selectedItem }: RentalDetai
                 {headline}
             </label>
 
-            <div className="flex items-center mt-[8px]">
+            <div className="flex items-center mt-[8px] relative">
                 <select
                     id={id}
                     defaultValue=""
-                    className="flex-1 min-w-0 h-[16px] appearance-none outline-none text-s-10 font-medium tracking-[-0.02em] text-secondary-300"
+                    className="flex-1 min-w-0 w-full pr-[20px] h-[16px] cursor-pointer appearance-none outline-none text-s-10 font-medium tracking-[-0.02em] text-secondary-300"
                 >
                     <option value="" disabled>Select your {selectedItem}</option>
                 </select>
-                <img src="/rental-details/arrow-down.svg" alt="" className="w-[16px] h-[16px]" />
+                <img src="/rental-details/arrow-down.svg" alt="" className="w-[16px] h-[16px] absolute right-0 pointer-events-none" />
             </div>
         </div>
     )

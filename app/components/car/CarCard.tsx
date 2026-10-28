@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import type { Car } from "../../data/cars"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 interface CarCardProps {
@@ -11,24 +10,27 @@ interface CarCardProps {
 
 export default function CarCard({ car }: CarCardProps) {
     const [isFavorite, setIsFavorite] = useState(car.isFavorite);
-    const router = useRouter();
 
     return (
-        <div className="car-card cursor-pointer" onClick={() => router.push(`/car-details/${car.id}`)}>
+        //курсор поинтер убралм факин шит
+        <article className="car-card">
 
             <div className="flex justify-between h-[48px]">
                 <div className="flex flex-col gap-[4px]">
-                    <h3 className="h-[24px] text-s-6 font-bold leading-[24px] tracking-[-0.03em] text-secondary-500">{car.name}</h3>
+                    <Link href={`/car-details/${car.id}`} className="h-[24px] text-s-6 font-bold leading-[24px] tracking-[-0.03em] text-secondary-500 after:absolute after:inset-0">
+                    {car.name}
+                    </Link>
                     <span className="h-[20px] text-s-9 font-bold leading-[21px] tracking-[-0.02em] text-secondary-300">{car.type}</span>
                 </div>
+
                 <button
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        setIsFavorite(!isFavorite)
-                    }} className="self-start">
+                    onClick={() => {setIsFavorite(!isFavorite)}} 
+                    className="self-start relative z-10"
+                    aria-pressed={isFavorite} //Доступность для скринридеров
+                    aria-label="Toggle favorite">
                     <img
                         src={isFavorite ? "/buttons/like.svg" : "/buttons/unlike.svg"}
-                        alt="Favorite"
+                        alt=""
                         className="car-card-icon"
                     />
                 </button>
@@ -69,11 +71,11 @@ export default function CarCard({ car }: CarCardProps) {
                         </p>
                     )}
                 </div>
-                <Link href={`/car-details/${car.id}`} className="btn bg-primary-500 w-[116px] h-[44px] px-[20px] text-s-8 font-semibold tracking-[-0.02em] text-white">
+                <Link href={`/car-details/${car.id}`} className="btn bg-primary-500 w-[116px] h-[44px] px-[20px] text-s-8 font-semibold tracking-[-0.02em] text-white relative z-10">
                     Rent Now
                 </Link>
             </div>
 
-        </div>
+        </article>
     )
 }

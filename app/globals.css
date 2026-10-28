@@ -125,6 +125,31 @@
   align-items: center;
 }
 
+/* --- Skeleton (loading) --- */
+
+.skeleton {
+  border-radius: 10px;
+  background-color: var(--secondary-100);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  50% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+
+/* мягкое появление загруженного контента */
+
+.fade-in {
+  animation: fade-in 0.35s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
 
 /* ==========================================================================
    3. LAYOUT
@@ -144,7 +169,7 @@
 /* --- Footer --- */
 
 .footer {
-  height: 480px;
+  min-height: 480px;
   width: 100%;
   background-color: var(--white);
 }
@@ -190,11 +215,11 @@
 }
 
 .adv-1 {
-  --ads-bg: url("/adv-1.svg");
+  --ads-bg: url("/adv/adv-1.svg");
 }
 
 .adv-2 {
-  --ads-bg: url("/adv-2.svg");
+  --ads-bg: url("/adv/adv-2.svg");
 }
 
 .adv-1 h2, .adv-2 h2 {
@@ -202,7 +227,7 @@
 }
 
 .adv-3 {
-  --ads-bg: url("/adv-3.svg");
+  --ads-bg: url("/adv/adv-3.svg");
   width: 492px;
 }
 .adv-3 div h2 {

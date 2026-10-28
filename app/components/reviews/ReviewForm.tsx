@@ -20,6 +20,8 @@ export default function ReviewForm({ carId }: { carId: string }) {
     const [errors, setErrors] = useState<FormErrors>({})
     const [isSending, setIsSending] = useState(false)
 
+
+    //Заполнение указаний для полей с ошибками
     function validate(): FormErrors {
         const result: FormErrors = {}
         if (name.trim().length < 2) result.name = "Enter your name (at least 2 characters)"
@@ -28,6 +30,7 @@ export default function ReviewForm({ carId }: { carId: string }) {
         return result
     }
 
+    //когда пользователь начниает убирать ошибку
     function clearError(field: keyof FormErrors) {
         setErrors((errors) => ({ ...errors, [field]: undefined }))
     }
@@ -37,8 +40,9 @@ export default function ReviewForm({ carId }: { carId: string }) {
 
         const found = validate()
         setErrors(found)
-        if (Object.keys(found).length > 0) return
+        if (Object.keys(found).length > 0) return //ошибки есть -> выходим
 
+        //валидация успешна -> попытка отправки
         setIsSending(true)
         try {
             await postReview({

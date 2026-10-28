@@ -19,13 +19,15 @@ export default function FilterSection({ title, param, options }: FilterSectionPr
 
     function toggle(name: string) {
         const next = selected.includes(name)
-            ? selected.filter((value) => value !== name)
-            : [...selected, name]
+            ? selected.filter((value) => value !== name) //если выделенный значок -> удаляем из массива
+            : [...selected, name] //Иначе добавляем к текущему массиву нажатых
 
         const params = new URLSearchParams(searchParams.toString())
         params.delete(param)
         next.forEach((value) => params.append(param, value))
-        params.delete("limit")
+        params.delete("limit") // новый филтр = новые машины
+        //если не сбросить лимит, то база попробует выкинуть столько машин, сколько было до этого 
+        //например был (limit=27 а по выбранному фильтру всего 3 машины -> лищняя нагрузка)
 
         router.push(categoryUrl(params), { scroll: false })
     }

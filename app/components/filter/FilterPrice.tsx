@@ -56,6 +56,7 @@ export default function FilterPrice() {
                     onKeyUp={applyPrice}
                     className="filter-range"
                     style={{ "--fill": `${fill}px` } as CSSProperties}
+                    aria-label="Maximum price per day"
                 />
                 <p className="filter-text h-[24px] flex items-center">Max. ${price}.00</p>
             </div>
