@@ -1,4 +1,7 @@
+"use client"
 import Link from "next/link"
+import { signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 export default function Header() {
     return (
@@ -33,6 +36,7 @@ function SearchBar() {
 }
 
 function ButtonsPannel() {
+    const account = useSession()
     return (
         <div className="ml-auto flex items-center gap-[20px]">
             <Link href="/favorites" aria-label="Favorites" className="w-[44px] h-[44px]">
@@ -47,9 +51,9 @@ function ButtonsPannel() {
                 <img src="/header/Settings.svg" alt="" aria-hidden="true" className="w-full h-full" />
             </button>
 
-            <Link href="/profile" aria-label="Profile" className="w-[44px] h-[44px]">
-                <img src="/header/Profil.svg" alt="" aria-hidden="true" className="w-full h-full rounded-full" />
-            </Link>
+            <button type='button' onClick={() => {account.status === "authenticated" ? signOut() : signIn('google')}} aria-label="Profile" className="w-[44px] h-[44px] cursor-pointer">
+                <img src={account.status === "authenticated" ? account.data?.user?.image : "/users/default.svg"} alt="" aria-hidden="true" className="w-full h-full rounded-full" />
+            </button>
         </div>
     )
 }

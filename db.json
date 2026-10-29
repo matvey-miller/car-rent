@@ -8,14 +8,14 @@
       "imageWidth": 232,
       "imageHeight": 72,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
       "capacity": "2 People",
       "pricePerDay": 99,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "popular",
       "description": "Koenigsegg is a hypercar built for pure speed: lightweight carbon body, precise steering and a track-ready engine."
     },
@@ -27,8 +27,8 @@
       "imageWidth": 204,
       "imageHeight": 64,
       "gallery": [
-        "/car-gallery/2-1.png",
-        "/car-gallery/2-2.png"
+        "/car-gallery/2-1.webp",
+        "/car-gallery/2-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -46,14 +46,14 @@
       "imageWidth": 220,
       "imageHeight": 68,
       "gallery": [
-        "/car-gallery/3-1.jpg",
-        "/car-gallery/3-2.jpg"
+        "/car-gallery/3-1.webp",
+        "/car-gallery/3-2.webp"
       ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
       "capacity": "4 People",
       "pricePerDay": 96,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "popular",
       "description": "Rolls - Royce combines a silent cabin, handcrafted interior and effortless power for the most comfortable ride in the city."
     },
@@ -65,8 +65,8 @@
       "imageWidth": 204,
       "imageHeight": 64,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -84,8 +84,8 @@
       "imageWidth": 224,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
@@ -103,14 +103,14 @@
       "imageWidth": 248,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/2-1.png",
-        "/car-gallery/2-2.png"
+        "/car-gallery/2-1.webp",
+        "/car-gallery/2-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
       "capacity": "6 People",
       "pricePerDay": 80,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "recommended",
       "description": "CR - V is a comfortable SUV with a quiet cabin, smart safety features and low fuel consumption on long trips."
     },
@@ -122,8 +122,8 @@
       "imageWidth": 224,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/3-1.jpg",
-        "/car-gallery/3-2.jpg"
+        "/car-gallery/3-1.webp",
+        "/car-gallery/3-2.webp"
       ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
@@ -140,14 +140,14 @@
       "imageWidth": 248,
       "imageHeight": 100,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
       "capacity": "6 People",
       "pricePerDay": 80,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "recommended",
       "description": "CR - V is a comfortable SUV with a quiet cabin, smart safety features and low fuel consumption on long trips."
     },
@@ -159,15 +159,15 @@
       "imageWidth": 264,
       "imageHeight": 108,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
       "capacity": "4 People",
       "pricePerDay": 76,
       "oldPricePerDay": 80,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "recommended",
       "description": "MG ZX Exclusice is a stylish hatchback with a modern interior, responsive engine and easy city driving."
     },
@@ -179,8 +179,8 @@
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
-        "/car-gallery/2-1.png",
-        "/car-gallery/2-2.png"
+        "/car-gallery/2-1.webp",
+        "/car-gallery/2-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -197,14 +197,14 @@
       "imageWidth": 264,
       "imageHeight": 108,
       "gallery": [
-        "/car-gallery/3-1.jpg",
-        "/car-gallery/3-2.jpg"
+        "/car-gallery/3-1.webp",
+        "/car-gallery/3-2.webp"
       ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
       "capacity": "4 People",
       "pricePerDay": 74,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "recommended",
       "description": "MG ZX Excite is a compact hatchback that is economical, agile and comfortable for everyday trips."
     },
@@ -216,8 +216,8 @@
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -234,8 +234,8 @@
       "imageWidth": 288,
       "imageHeight": 112,
       "gallery": [
-        "/car-gallery/1-1.jpg",
-        "/car-gallery/1-2.jpg"
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
       ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
@@ -244,19 +244,22 @@
       "category": "recommended",
       "description": "New MG ZS is a practical SUV with a spacious interior, high ground clearance and a smooth ride."
     },
-        {
+    {
       "id": "14",
       "name": "Koenigsegg",
       "type": "Sport",
       "image": "cars/car1adv.png",
       "imageWidth": 232,
       "imageHeight": 72,
-      "gallery": ["/car-gallery/1-1.jpg", "/car-gallery/1-2.jpg"],
+      "gallery": [
+        "/car-gallery/1-1.webp",
+        "/car-gallery/1-2.webp"
+      ],
       "fuelCapacity": "90L",
       "transmission": "Manual",
       "capacity": "2 People",
       "pricePerDay": 99,
-      "isFavorite": true,
+      "isFavorite": false,
       "category": "recent",
       "description": "Koenigsegg is a hypercar built for pure speed: lightweight carbon body, precise steering and a track-ready engine."
     },
@@ -267,7 +270,10 @@
       "image": "cars/car2adv.png",
       "imageWidth": 204,
       "imageHeight": 64,
-      "gallery": ["/car-gallery/2-1.png", "/car-gallery/2-2.png"],
+      "gallery": [
+        "/car-gallery/2-1.webp",
+        "/car-gallery/2-2.webp"
+      ],
       "fuelCapacity": "80L",
       "transmission": "Manual",
       "capacity": "2 People",
@@ -283,7 +289,10 @@
       "image": "cars/Car-1.png",
       "imageWidth": 220,
       "imageHeight": 68,
-      "gallery": ["/car-gallery/3-1.jpg", "/car-gallery/3-2.jpg"],
+      "gallery": [
+        "/car-gallery/3-1.webp",
+        "/car-gallery/3-2.webp"
+      ],
       "fuelCapacity": "70L",
       "transmission": "Manual",
       "capacity": "4 People",
@@ -329,7 +338,52 @@
       "comment": "Excellent handling and a smooth rental experience.",
       "date": "2026-10-02"
     }
-    
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Matvey",
+      "email": "mllr.matvey@gmail.com",
+      "phone": "",
+      "address": "",
+      "favorites": [
+        "4",
+        "1",
+        "2",
+        "3",
+        "6"
+      ],
+      "recentCars": [
+        "2"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Alex Johnson",
+      "email": "alex.j@gmail.com",
+      "phone": "+1 234 567 8900",
+      "address": "New York, USA",
+      "favorites": [
+        "2",
+        "15"
+      ],
+      "recentCars": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Sarah Connor",
+      "email": "sarah.c@outlook.com",
+      "phone": "",
+      "address": "Los Angeles, USA",
+      "favorites": [],
+      "recentCars": [
+        "14"
+      ]
+    }
   ],
   "rentals": []
 }

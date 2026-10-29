@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from "react"
 import type { Car } from "../../data/cars"
 import Link from "next/link"
+import { useFavorite } from "../FavoritesProvider"
 
 interface CarCardProps {
     car: Car;
 }
 
 export default function CarCard({ car }: CarCardProps) {
-    const [isFavorite, setIsFavorite] = useState(car.isFavorite);
+    const {favorites, toggleFavorite} = useFavorite();
 
+    const isFavorite = favorites?.includes(car.id)
     return (
         //курсор поинтер убралм факин шит
         <article className="car-card">
@@ -24,8 +25,8 @@ export default function CarCard({ car }: CarCardProps) {
                 </div>
 
                 <button
-                    onClick={() => {setIsFavorite(!isFavorite)}} 
-                    className="self-start relative z-10"
+                    onClick={() => toggleFavorite(car.id)}
+                    className="self-start relative z-10 cursor-pointer"
                     aria-pressed={isFavorite} //Доступность для скринридеров
                     aria-label="Toggle favorite">
                     <img
@@ -79,3 +80,4 @@ export default function CarCard({ car }: CarCardProps) {
         </article>
     )
 }
+
