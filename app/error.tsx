@@ -3,7 +3,7 @@
 import { useEffect, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import StatusMessage from "./components/StatusMessage"
+import StatusMessage from "../components/ui/StatusMessage"
 
 export default function ErrorPage({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     const router = useRouter()

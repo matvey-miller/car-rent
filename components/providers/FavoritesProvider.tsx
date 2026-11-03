@@ -2,6 +2,9 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { useSession } from "next-auth/react"
+import { useRef } from "react"
+import { updateFavorites } from "../../lib/favorites"
+import { getUserData } from "../../lib/user"
 
 interface FavoritesContextProps {
     favorites: string[]
@@ -11,28 +14,28 @@ interface FavoritesContextProps {
 // Для работы с переменными в любой части проекта
 //не можем заполнить нужные поля, потому что они еще даже не запросились. Это просто инициализация поэтому нужен налл.
 const FavoritesContext = createContext<FavoritesContextProps | null>(null)
+const TIMER_INTERVAL = 500;
+
 
 export default function FavoritesProvider({ children }: { children: ReactNode }) {
     const { data: session } = useSession()
     const userEmail = session?.user?.email
 
-    // Глобальное состояние лайков
     const [favorites, setFavorites] = useState<string[]>([])
-    // Сохраняем ID юзера, чтобы потом делать PATCH
-    const [userId, setUserId] = useState<string | null>(null)
+    //Debounce таймер воизбежание миллионов кликов -> в следствии запросов в бд
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     // 2. При входе юзера на сайт — один раз делаем GET запрос
     useEffect(() => {
         if (!userEmail) return;
 
         async function fetchFavorites() {
-            const response = await fetch(`http://localhost:4000/users?email=${userEmail}`)
-            const userData = await response.json()
-            //если в нашей бд нет еще такого юзера
-            if (userData.length > 0) {
-                setUserId(userData[0].id)
-                setFavorites(userData[0].favorites || [])
+            const user = await getUserData()
+            //актуализируем данные если пользователь есть в бд
+            if (user) {
+                setFavorites(user.favorites || [])
             }
+            
         }
 
         fetchFavorites()
@@ -40,22 +43,30 @@ export default function FavoritesProvider({ children }: { children: ReactNode })
 
     //Обновляем favorites-array по клику
     async function toggleFavorite(carId: string) {
-        if (!userId) return; // Гостям лайкать нельзя
+        if (!userEmail) return;
+
+        if (timerRef.current) {
+            clearTimeout(timerRef.current)
+        }
 
         const newFavorites = favorites.includes(carId)
             ? favorites.filter((id) => id !== carId)
             : [...favorites, carId]
 
+        const prevFavorites = favorites
         // Мгновенно обновляем стейт, чтобы сердечки перекрасились сразу!
         setFavorites(newFavorites)
-
-        await fetch(`http://localhost:4000/users/${userId}`, {
-            method: "PATCH",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                'favorites': newFavorites,
-            }),
-        })
+        
+        timerRef.current = setTimeout(async () => {
+            try {
+                await updateFavorites(newFavorites)
+            } catch {
+                //откат ui если запрос дпропнулся
+                setFavorites(prevFavorites)
+            }
+        }, TIMER_INTERVAL)
+        
+        
     }
 
     // Раздаем данные всем детям внутри коробки

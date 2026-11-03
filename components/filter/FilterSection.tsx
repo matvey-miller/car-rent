@@ -1,9 +1,9 @@
 "use client"
 import { Checkboxes } from "../../data/filters"
-import FilterCheckbox from "../filter/FilterCheckbox";
+import FilterCheckbox from "./FilterCheckbox";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
-import { categoryUrl } from "../../lib/categoryUrl";
+import { categoryUrl } from "../../lib/utils";
+import { useOptimistic, startTransition } from "react";
 
 
 interface FilterSectionProps {
@@ -15,20 +15,15 @@ interface FilterSectionProps {
 export default function FilterSection ({title, type, checkboxes} : FilterSectionProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
-
-    const [selected, setSelected] = useState(searchParams.getAll(type))
-
-    useEffect( () =>
-    {setSelected(searchParams.getAll(type))},
-    [searchParams])
+    const currentFilters = searchParams.getAll(type)
+    //хук для optimistic ui прогрузки интерфейса не ожидая фетч (работает по предсказанию данных, которые мы сами предсказываем)
+    const [selected, setSelected] = useOptimistic(currentFilters)
     
 
     function toggle(currentFilter : string) {
-        const updatedFilter = selected.includes(currentFilter)
-            ? selected.filter((filter) => filter !== currentFilter)
-            : [...selected, currentFilter]
-
-        setSelected(updatedFilter)
+        const updatedFilter = currentFilters.includes(currentFilter)
+            ? currentFilters.filter((filter) => filter !== currentFilter)
+            : [...currentFilters, currentFilter]
 
         //create a new URL
         const params = new URLSearchParams(searchParams.toString())
@@ -36,7 +31,11 @@ export default function FilterSection ({title, type, checkboxes} : FilterSection
         updatedFilter.forEach((filter) => (params.append(type, filter)))
         params.delete("limit")
 
-        router.push(categoryUrl(params), {scroll: false})
+        startTransition(() => {
+            setSelected(updatedFilter)
+            router.push(categoryUrl(params), {scroll: false})
+        })
+        
         
     }
 

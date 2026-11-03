@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, CSSProperties } from "react"
+import {  useState, CSSProperties } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { categoryUrl } from "../../lib/categoryUrl"
+import { categoryUrl } from "../../lib/utils"
 
-// подобрано так, чтобы значение 100 совпадало с макетом (маркер на 220px)
 const MAX_PRICE = 131.43;
 const DEFAULT_PRICE = 100;
 
@@ -13,20 +12,8 @@ export default function FilterPrice() {
     const searchParams = useSearchParams()
 
     const urlPrice = Number(searchParams.get("maxPrice")) || DEFAULT_PRICE
-
-    const [price, setPrice] = useState(urlPrice)
-    const [prevUrlPrice, setPrevUrlPrice] = useState(urlPrice)
-
-    // адрес поменялся снаружи (кнопка «Назад», переход с другой страницы) — подтягиваем ползунок
-    if (urlPrice !== prevUrlPrice) {
-        setPrevUrlPrice(urlPrice)
-        setPrice(urlPrice)
-    }
-
-    // центр маркера: 10px (радиус) + путь по треку 296 - 20 = 276px
-    const fill = 10 + (price / MAX_PRICE) * 276;
-
-    function applyPrice() {
+    
+    function applyPrice(price: number) {
         if (price === urlPrice) return
 
         const params = new URLSearchParams(searchParams.toString())
@@ -41,6 +28,18 @@ export default function FilterPrice() {
     }
 
     return (
+        // из-зи key обновляется слайдер даже если пользователь вернется на страницу назад
+        <PriceSlider key={urlPrice} initialPrice={urlPrice} onApply={applyPrice}/>
+    )
+}
+
+function PriceSlider({ initialPrice, onApply }: { initialPrice: number, onApply: (price: number) => void }) {
+    const [price, setPrice] = useState(initialPrice)
+
+    // центр маркера: 10px (радиус) + путь по треку 296 - 20 = 276px
+    const fill = 10 + (price / MAX_PRICE) * 276;
+    
+    return (
         <section className="flex flex-col gap-[28px]">
             <h3 className="filter-title">P R I C E</h3>
 
@@ -52,8 +51,8 @@ export default function FilterPrice() {
                     step={1}
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
-                    onPointerUp={applyPrice}
-                    onKeyUp={applyPrice}
+                    onPointerUp={() => onApply(price)}
+                    onKeyUp={() => onApply(price)}
                     className="filter-range"
                     style={{ "--fill": `${fill}px` } as CSSProperties}
                     aria-label="Maximum price per day"

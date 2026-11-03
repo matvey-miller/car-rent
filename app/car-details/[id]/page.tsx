@@ -1,16 +1,17 @@
 import { Suspense } from "react"
 import { notFound } from "next/navigation"
-import FilterSidebar from "../../components/filter/FilterSideBar"
-import DetailCar from "../../components/car/DetailCar"
-import CarGallery from "../../components/car/CarGallery"
-import ReviewsSection from "../../components/reviews/ReviewsSection"
-import { getCar, getReviews, getCars, getCarsByIds } from "../../lib/api"
-import CarCategorySection from "../../components/car/CarCategorySection"
+import FilterSidebar from "../../../components/filter/FilterSideBar"
+import DetailCar from "../../../components/car/DetailCar"
+import CarGallery from "../../../components/car/CarGallery"
+import ReviewsSection from "../../../components/reviews/ReviewsSection"
+import { getCar, getReviews, getCars, getCarsByIds } from "../../../lib/api"
+import CarCategorySection from "../../../components/car/CarCategorySection"
 import { cookies } from "next/headers"
-import CarCardsGrid from "../../components/car/CarCardsGrid"
-import RecentTracker from "../../components/car/RecentTracker"
-import { RECENT_COOKIE, RECENT_LIMIT, parseRecent } from "../../lib/recent"
-import CarDetailsSkeleton from "../../components/skeleton/CarDetailsSkeleton"
+import CarCardsGrid from "../../../components/car/CarCardsGrid"
+import RecentTracker from "../../../components/car/RecentTracker"
+import { RECENT_COOKIE, RECENT_LIMIT, parseRecent } from "../../../lib/recent"
+import CarDetailsSkeleton from "../../../components/skeleton/CarDetailsSkeleton"
+import ReviewsSectionSkeleton from "../../../components/skeleton/ReviewSectionSkeleton"
 
 export default function CarDetailsPage({params}: {params: Promise<{ id: string }>}) {
     return (
@@ -59,7 +60,9 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
                     <DetailCar car={car} rating={rating} reviewsCount={reviews.length} />
                 </div>
 
-                <ReviewsSection carId={id} reviews={reviews} />
+                <Suspense fallback={<ReviewsSectionSkeleton />}>
+                    <ReviewsSection carId={id} reviews={reviews} />
+                </Suspense>
 
                 {recentCars.length > 0 && (
                     <section className="flex flex-col gap-[20px]">

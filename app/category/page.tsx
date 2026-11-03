@@ -1,12 +1,12 @@
 import { Suspense } from "react"
-import FilterSidebar from "../components/filter/FilterSideBar"
-import RentalDetailsSection from "../components/rental-details/RentalDetailsSection"
-import CarCardsGrid from "../components/car/CarCardsGrid"
-import ShowMoreSection from "../components/ShowMoreSection"
-import { getCarsPage, CARS_PER_PAGE } from "../lib/api"
-import { categoryUrl } from "../lib/categoryUrl"
-import CarCardsGridSkeleton from "../components/skeleton/CarCardsGridSkeleton"
-import FilterSidebarSkeleton from "../components/skeleton/FilterSidebarSkeleton"
+import FilterSidebar from "../../components/filter/FilterSideBar"
+import RentalDetailsSection from "../../components/rental-details/RentalDetailsSection"
+import CarCardsGrid from "../../components/car/CarCardsGrid"
+import ShowMoreSection from "../../components/ui/ShowMoreSection"
+import { getCarsPage, CARS_PER_PAGE } from "../../lib/api"
+import { categoryUrl } from "../../lib/utils"
+import CarCardsGridSkeleton from "../../components/skeleton/CarCardsGridSkeleton"
+import FilterSidebarSkeleton from "../../components/skeleton/FilterSidebarSkeleton"
 
 interface CategoryPageProps {
     searchParams: Promise<{

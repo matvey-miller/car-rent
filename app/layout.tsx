@@ -2,8 +2,8 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import AuthProvider from "./components/AuthProvider";
-import FavoritesProvider from "./components/FavoritesProvider";
+import AuthProvider from "../components/providers/AuthProvider";
+import FavoritesProvider from "../components/providers/FavoritesProvider";
 
 // 2. Экспортируем объект с метаданными
 export const metadata: Metadata = {
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
-import Footer from "./components/Footer"
-import Header from "./components/Header"
+import Footer from "../components/layout/Footer"
+import Header from "../components/layout/Header"
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],

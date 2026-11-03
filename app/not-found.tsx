@@ -1,5 +1,5 @@
 import Link from "next/link"
-import StatusMessage from "./components/StatusMessage"
+import StatusMessage from "../components/ui/StatusMessage"
 
 export default function NotFound() {
     return (

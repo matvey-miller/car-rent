@@ -2,10 +2,12 @@
 
 import { useState, FormEvent } from "react"
 import { useRouter } from "next/navigation"
-import { postReview } from "../../lib/api"
+import { postReview } from "../../lib/actions"
+import { useSession } from "next-auth/react"
+import ReviewSignIn from "./ReviewSignIn"
+import ReviewFormSkeleton from "../skeleton/ReviewFomSkeleton"
 
 interface FormErrors {
-    name?: string;
     rating?: string;
     comment?: string;
     form?: string;
@@ -13,8 +15,8 @@ interface FormErrors {
 
 export default function ReviewForm({ carId }: { carId: string }) {
     const router = useRouter()
+    const session = useSession()
 
-    const [name, setName] = useState("")
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState("")
     const [errors, setErrors] = useState<FormErrors>({})
@@ -24,16 +26,15 @@ export default function ReviewForm({ carId }: { carId: string }) {
     //Заполнение указаний для полей с ошибками
     function validate(): FormErrors {
         const result: FormErrors = {}
-        if (name.trim().length < 2) result.name = "Enter your name (at least 2 characters)"
         if (rating === 0) result.rating = "Choose a rating"
         if (comment.trim().length < 10) result.comment = "Write at least 10 characters"
         return result
     }
 
-    //когда пользователь начниает убирать ошибку
     function clearError(field: keyof FormErrors) {
         setErrors((errors) => ({ ...errors, [field]: undefined }))
     }
+
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
@@ -42,17 +43,9 @@ export default function ReviewForm({ carId }: { carId: string }) {
         setErrors(found)
         if (Object.keys(found).length > 0) return //ошибки есть -> выходим
 
-        //валидация успешна -> попытка отправки
         setIsSending(true)
         try {
-            await postReview({
-                carId,
-                user: { name: name.trim(), avatar: "/users/default.svg", role: "Customer" },
-                rating,
-                comment: comment.trim(),
-                date: new Date().toISOString().slice(0, 10),
-            })
-            setName("")
+            await postReview(carId, rating, comment)
             setRating(0)
             setComment("")
             router.refresh()
@@ -63,23 +56,25 @@ export default function ReviewForm({ carId }: { carId: string }) {
         }
     }
 
+    if (session.status === "loading") {
+        return (
+            <ReviewFormSkeleton />
+        )
+    }
+
+
+    if (session.status === "unauthenticated") {
+        return (
+            <ReviewSignIn />
+        )
+    }
+
     return (
-        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-[24px]">
+        <div>
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-[24px]">
             <h3 className="text-s-6 font-bold leading-[30px] tracking-[-0.02em] text-secondary-500">Leave a review</h3>
 
-            <div className="review-field-wrap">
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => {
-                        setName(e.target.value)
-                        clearError("name")
-                    }}
-                    placeholder="Your name"
-                    className={`review-field h-[56px] ${errors.name ? "review-field-error" : ""}`}
-                />
-                {errors.name && <span className="review-error">{errors.name}</span>}
-            </div>
+            
 
             <div className="review-field-wrap">
                 <div className="flex items-center gap-[12px]">
@@ -119,5 +114,7 @@ export default function ReviewForm({ carId }: { carId: string }) {
                 {isSending ? "Sending..." : "Send review"}
             </button>
         </form>
+        </div>
+        
     )
 }

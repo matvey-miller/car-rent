@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com', // Разрешаем аватарки от Google
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import type { Review } from "../../data/reviews"
-import Stars from "../Stars"
+import Stars from "../ui/Stars"
 
 // 1. Вынесли настройки даты наружу. Теперь они создаются один раз при запуске, 
 // а не пересоздаются каждый раз при рендере каждого отзыва.

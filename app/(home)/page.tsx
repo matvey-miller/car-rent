@@ -1,13 +1,13 @@
 
 
-import AdvertisementSection from "../components/advertisment/AdvertisementSection"
-import RentalDetailsSection from "../components/rental-details/RentalDetailsSection"
-import CarsCategorySection from "../components/car/CarCategorySection"
-import SpecificCarCardsList from "../components/car/SpecificCarCardsList"
-import ShowMoreSection from "../components/ShowMoreSection"
-import { getCarsCount } from "../lib/api"
+import AdvertisementSection from "../../components/advertisment/AdvertisementSection"
+import RentalDetailsSection from "../../components/rental-details/RentalDetailsSection"
+import CarsCategorySection from "../../components/car/CarCategorySection"
+import SpecificCarCardsList from "../../components/car/SpecificCarCardsList"
+import ShowMoreSection from "../../components/ui/ShowMoreSection"
+import { getCarsCount } from "../../lib/api"
 import { Suspense } from "react"
-import CarCardsGridSkeleton from "../components/skeleton/CarCardsGridSkeleton"
+import CarCardsGridSkeleton from "../../components/skeleton/CarCardsGridSkeleton"
 
 async function WaitingForTotalInfo() {
     const total = await getCarsCount()

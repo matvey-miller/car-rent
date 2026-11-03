@@ -2,7 +2,7 @@
 
 import type { Car } from "../../data/cars"
 import Link from "next/link"
-import { useFavorite } from "../FavoritesProvider"
+import { useFavorite } from "../providers/FavoritesProvider"
 
 interface CarCardProps {
     car: Car;

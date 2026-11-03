@@ -1,5 +1,8 @@
+
+
 import type { Car } from "../data/cars"
-import type { Review, NewReview } from "../data/reviews"
+import type { Review } from "../data/reviews"
+import { fetchOk, API_URL } from "./utils"
 
 export interface CarFilters {
     types: string[];
@@ -9,16 +12,8 @@ export interface CarFilters {
     ids?: string[];
 }
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"
 export const CARS_PER_PAGE = 9
 
-// адрес откуда берем данные и init? -> необяз. настройки к нему (методб,кеш)
-async function fetchOk(url: string, init?: RequestInit): Promise<Response> {
-    const res = await fetch(url, init)
-    //если ответ не положительный -> выброс ошибки для покза error.tsx
-    if (!res.ok) throw new Error(`Request failed: ${res.status} ${url}`)
-    return res
-}
 
 //force-cache -> данные меняются редко,кешируй и если завтра другой пользователь зайдет,выдавай их, а не долби бд
 export async function getCars(category: Car["category"], limit: number): Promise<Car[]> {
@@ -34,16 +29,6 @@ export async function getCar(id: string): Promise<Car | null> {
 export async function getReviews(id: string) : Promise<Review[]> {
     const res = await fetchOk(`${API_URL}/reviews?carId=${id}&_sort=date&_order=desc`, {cache: "no-store"})
     return res.json();
-}
-
-
-export async function postReview(review: NewReview): Promise<void> {
-    await fetchOk(`${API_URL}/reviews`, {
-        method: "POST",
-        //это тупо запомнить: тип -> джейсон
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(review),
-    })
 }
 
 

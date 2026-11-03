@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Car } from "../../data/cars";
-import Stars from "../Stars";
+import Stars from "../ui/Stars";
 
 interface DetailCarProps {
     car: Car;

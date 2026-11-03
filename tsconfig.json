@@ -30,7 +30,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/profile/SignOutButton"  ],
   "exclude": [
     "node_modules"
   ]
