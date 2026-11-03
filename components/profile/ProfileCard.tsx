@@ -1,6 +1,7 @@
 
 import { getUserData } from "../../lib/user"
 import { redirect } from "next/navigation";
+import Link from "next/link"
 
 
 interface ProfileField {
@@ -35,9 +36,9 @@ export default async function ProfileCard() {
             <div className="flex-1 flex flex-col gap-[24px]">
                 <div className="flex justify-between items-center h-[44px]">
                     <h1 className="text-s-4 font-bold tracking-[-0.03em] text-secondary-500">My profile</h1>
-                    <button type="button" className="btn bg-primary-500 w-[140px] h-[44px] text-s-8 font-semibold tracking-[-0.02em] text-white">
+                    <Link href="/profile/edit" className="btn bg-primary-500 w-[140px] h-[44px] text-s-8 font-semibold tracking-[-0.02em] text-white">
                         Edit profile
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="h-px w-full bg-secondary-100" />

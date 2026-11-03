@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { API_URL } from "./utils";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
 
-interface UserData {
+interface FullUserData {
     id: string;
     name: string
     email: string
@@ -14,8 +14,14 @@ interface UserData {
     image: string | null
 }
 
+interface UpdatedUserData {
+    name: string
+    phone: string
+    address: string
+}
 
-export async function getUserData() : Promise<UserData | null> {
+
+export async function getUserData() : Promise<FullUserData | null> {
     const session = await getServerSession(authOptions)
     const email = session?.user?.email
     
@@ -31,4 +37,31 @@ export async function getUserData() : Promise<UserData | null> {
 
     return null
     
+}
+
+export async function updateUserData(updatedData: UpdatedUserData) {
+    const session = await getServerSession(authOptions)
+    // тут должна быить проверка ксть ли сессия
+    const userId = (session as any)?.user?.id
+
+    if (!userId) {
+        throw new Error("Unauthenticated")
+    }
+    try {
+        await fetch(`${API_URL}/users/${userId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: updatedData.name,
+                phone: updatedData.phone,
+                address: updatedData.address
+            })
+        })
+    } catch {
+        throw new Error("HTTP 500")
+    }
+    
+
 }
