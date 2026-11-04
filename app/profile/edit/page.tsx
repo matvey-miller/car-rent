@@ -21,7 +21,7 @@ export default function EditProfilePage() {
 
                 <div className="h-px w-full bg-secondary-100" />
 
-                <Suspense fallback={<div className="h-[400px] skeleton rounded-[10px]"></div>}>
+                <Suspense fallback={<div className="h-[457px] skeleton rounded-[10px]"></div>}>
                     <ProfileFormLoader />
                 </Suspense>
             </section>

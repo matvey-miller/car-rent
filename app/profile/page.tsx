@@ -7,7 +7,7 @@ import { Suspense } from "react"
 export default function ProfilePage() {
     return (
         <div className="flex flex-col gap-[32px] w-[1312px] m-auto my-[32px]">
-            <Suspense>
+            <Suspense fallback={<div className="h-[279px] skeleton rounded-[10px]"></div>}>
                 <ProfileCard />
             </Suspense>
             

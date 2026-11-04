@@ -4,6 +4,7 @@ import { authOptions } from "../app/api/auth/[...nextauth]/route";
 import type { NewReview } from "../data/reviews"
 import {fetchOk, API_URL} from "./utils"
 
+
 export async function postReview(carId: string, rating: number, comment: string): Promise<void> {
     const session = await getServerSession(authOptions)
     const userName = session?.user?.name 
@@ -28,3 +29,5 @@ export async function postReview(carId: string, rating: number, comment: string)
         body: JSON.stringify(review),
     })
 }
+
+

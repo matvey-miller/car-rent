@@ -1,7 +1,8 @@
 'use server'
 import { getServerSession } from "next-auth";
-import { API_URL } from "./utils";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import {revalidatePath} from "next/cache"
+import {fetchOk, API_URL} from "./utils"
 
 interface FullUserData {
     id: string;
@@ -14,10 +15,10 @@ interface FullUserData {
     image: string | null
 }
 
-interface UpdatedUserData {
-    name: string
-    phone: string
-    address: string
+export interface UpdateUserDTO {
+    name: string;
+    phone?: string;
+    address?: string;
 }
 
 
@@ -39,29 +40,25 @@ export async function getUserData() : Promise<FullUserData | null> {
     
 }
 
-export async function updateUserData(updatedData: UpdatedUserData) {
+
+export async function updateUserData(data: UpdateUserDTO): Promise<void> {
     const session = await getServerSession(authOptions)
-    // тут должна быить проверка ксть ли сессия
     const userId = (session as any)?.user?.id
 
     if (!userId) {
         throw new Error("Unauthenticated")
     }
+
     try {
-        await fetch(`${API_URL}/users/${userId}`, {
+        await fetchOk(`${API_URL}/users/${userId}`, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: updatedData.name,
-                phone: updatedData.phone,
-                address: updatedData.address
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
         })
+
+        revalidatePath("/profile")
     } catch {
         throw new Error("HTTP 500")
     }
     
-
 }
