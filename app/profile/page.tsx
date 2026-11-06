@@ -1,8 +1,9 @@
 import CarCategorySection from "../../components/car/CarCategorySection"
 import ProfileCard from "../../components/profile/ProfileCard"
-import PlaceholderGrid from "../../components/profile/PlaceHolderGrid"
 import SignOutButton from "../../components/profile/SignOutButton"
 import { Suspense } from "react"
+import FavoriteCars from "../../components/profile/FavoriteCars"
+import RecentCars from "../../components/profile/RecentCars"
 
 export default function ProfilePage() {
     return (
@@ -14,12 +15,16 @@ export default function ProfilePage() {
 
             <section className="flex flex-col gap-[20px]">
                 <CarCategorySection title="Favorite Cars" action={{ buttonLabel: "View All", href: "/favorites" }} />
-                <PlaceholderGrid label="Favorite" />
-            </section>
+                <Suspense fallback={<div className="h-[388px] skeleton rounded-[10px]"></div>}>
+                    <FavoriteCars />
+                </Suspense>
+            </section> 
 
             <section className="flex flex-col gap-[20px]">
                 <CarCategorySection title="Recent Cars" action={{ buttonLabel: "View All", href: "/category" }} />
-                <PlaceholderGrid label="Recent" />
+                <Suspense fallback={<div className="h-[388px] skeleton rounded-[10px]"></div>}>
+                    <RecentCars />
+                </Suspense>
             </section>
             <SignOutButton/>
         </div>
