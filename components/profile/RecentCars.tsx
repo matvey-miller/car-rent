@@ -1,15 +1,10 @@
 import CarCardsGrid from "../car/CarCardsGrid"
-import { getUserData } from "../../lib/user"
-import { redirect } from "next/navigation"
-import { getCarsByIds } from "../../lib/api"
+import { getRecentCars } from "../../lib/actions"
+import { PROFILE_CARDS_LIMIT } from "../../lib/api"
+
 
 export default async function RecentCars() {
-    const userData = await getUserData()
-    if (!userData) {
-        redirect("/login")
-    }
-    const recentIds = userData?.recentCars.slice(0, 4) || []
-    const recent = await getCarsByIds(recentIds)
+    const recent = await getRecentCars(PROFILE_CARDS_LIMIT)
 
     if (recent.length === 0) {
         return <p className="text-secondary-300 mx-auto">No recent cars yet.</p>

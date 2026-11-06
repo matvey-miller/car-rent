@@ -4,7 +4,9 @@ import { authOptions } from "../app/api/auth/[...nextauth]/route";
 import type { NewReview } from "../data/reviews"
 import {fetchOk, API_URL} from "./utils"
 import {getUserData} from "./user"
-
+import { getCarsByIds } from "./api";
+import type {Car} from "../data/cars.ts"
+import { redirect } from "next/navigation";
 
 export async function postReview(carId: string, rating: number, comment: string): Promise<void> {
     const session = await getServerSession(authOptions)
@@ -45,4 +47,35 @@ export async function saveRecentCar(carId: string): Promise<void> {
         body: JSON.stringify({ recentCars: newRecent }),
     })
    
+}
+
+export async function getFavoriteCars(count?: number): Promise<Car[]>{
+    const userData = await getUserData()
+    if (!userData) {
+        redirect("/login")
+    }
+    
+    const ids = userData?.favorites || []
+    
+    const favoritesIds = count ? ids.slice(0, count) : ids
+    
+    const favorites = await getCarsByIds(favoritesIds)
+
+    return favorites
+}
+
+
+export async function getRecentCars(count?: number): Promise<Car[]>{
+    const userData = await getUserData()
+    if (!userData) {
+        redirect("/login")
+    }
+    
+    const ids = userData?.recentCars || []
+    
+    const recentIds = count ? ids.slice(0, count) : ids
+    
+    const recent = await getCarsByIds(recentIds)
+
+    return recent
 }

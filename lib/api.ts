@@ -13,6 +13,7 @@ export interface CarFilters {
 }
 
 export const CARS_PER_PAGE = 9
+export const PROFILE_CARDS_LIMIT = 4
 
 
 //force-cache -> данные меняются редко,кешируй и если завтра другой пользователь зайдет,выдавай их, а не долби бд
