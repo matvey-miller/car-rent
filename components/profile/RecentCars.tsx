@@ -12,7 +12,7 @@ export default async function RecentCars() {
     const recent = await getCarsByIds(recentIds)
 
     if (recent.length === 0) {
-        return <p className="text-secondary-300">No recent cars yet.</p>
+        return <p className="text-secondary-300 mx-auto">No recent cars yet.</p>
     }
     
     return (
