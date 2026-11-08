@@ -16,6 +16,7 @@ interface CategoryPageProps {
         maxPrice?: string;
         category?: string;
         id?: string | string[];
+        q?: string;
     }>;
 }
 
@@ -48,7 +49,7 @@ export default function CategoryPage({ searchParams }: CategoryPageProps) {
 
 async function CategoryCars({ searchParams }: CategoryPageProps) {
     const rawParams = await searchParams
-    const { limit, type, capacity, maxPrice: maxPriceParam, category: categoryParam, id } = rawParams
+    const { limit, type, capacity, maxPrice: maxPriceParam, category: categoryParam, id, q} = rawParams
 
     const count = Math.max(Number(limit) || CARS_PER_PAGE, CARS_PER_PAGE)
     const types = toArray(type)
@@ -56,8 +57,9 @@ async function CategoryCars({ searchParams }: CategoryPageProps) {
     const maxPrice = Number(maxPriceParam) > 0 ? Number(maxPriceParam) : undefined
     const category = categoryParam === "popular" || categoryParam === "recommended" ? categoryParam : undefined
     const ids = toArray(id)
+    const searchQuery = typeof q === 'string' ? q : Array.isArray(q) ? q[0] : undefined
 
-    const { cars, total } = await getCarsPage(count, { types, capacities, maxPrice, category, ids })
+    const { cars, total } = await getCarsPage(count, { types, capacities, maxPrice, category, ids, q: searchQuery})
 
     // Автоматически переносим все текущие параметры из URL и обновляем только limit
     const nextParams = new URLSearchParams()

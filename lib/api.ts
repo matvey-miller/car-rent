@@ -10,6 +10,7 @@ export interface CarFilters {
     maxPrice?: number;
     category?: Car["category"];
     ids?: string[];
+    q?: string;
 }
 
 export const CARS_PER_PAGE = 9
@@ -60,6 +61,9 @@ export async function getCarsPage(limit: number, filters: CarFilters): Promise<{
 
     if (filters.category) {
         query.set("category", filters.category)
+    }
+    if (filters.q) {
+        query.set("q", filters.q)
     }
 
     const res = await fetchOk(`${API_URL}/cars?${query}`, {cache: "no-store"})

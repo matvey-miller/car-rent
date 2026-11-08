@@ -1,8 +1,9 @@
 "use client"
 import Link from "next/link"
-import { signIn, signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
 export default function Header() {
     return (
@@ -11,8 +12,11 @@ export default function Header() {
             <div className='h-[44px] ml-[60px] mr-[32px] flex justify-between w-full gap-[64px] items-center'>
 
                 <Link className="logo" href="/">MORENT</Link>
-
-                <SearchBar/>
+                
+                <Suspense>
+                    <SearchBar/>
+                </Suspense>
+                
 
                 <ButtonsPannel/>
                 
@@ -23,12 +27,32 @@ export default function Header() {
 }
 
 function SearchBar() {
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const defaultValue = searchParams.get("q") || ""
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const query = String(formData.get("query") || "").trim()
+
+        if (!query) {
+            router.push("/category")
+        } else {
+            const params = new URLSearchParams(searchParams.toString())
+            params.set("q", query)
+            router.push(`/category?${params.toString()}`)
+        }
+
+        
+    }
+
     return (
-        <form className="flex w-[492px] h-[44px] items-center justify-between rounded-[70px] border border-secondary-200 px-[20px]">
+        <form onSubmit={handleSubmit} className="flex w-[492px] h-[44px] items-center justify-between rounded-[70px] border border-secondary-200 px-[20px]">
             <div className="flex items-center gap-[20px] flex-1 mr-[20px]">
                 <img src="/header/search-normal.svg" alt="" className="w-[24px] h-[24px]" />
 
-                <input type="text" placeholder="Search something here" className='outline-none flex-1 text-s-9 tracking-[-0.02em] text-secondary-400' />
+                <input name='query' defaultValue={defaultValue} type="text" placeholder="Search something here" className='outline-none flex-1 text-s-9 tracking-[-0.02em] text-secondary-400' />
             </div>
 
             <img src="/header/filter.svg" alt="" className="w-[24px] h-[24px]" />
