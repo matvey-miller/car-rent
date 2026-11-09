@@ -4,14 +4,13 @@ import FilterSidebar from "../../../components/filter/FilterSideBar"
 import DetailCar from "../../../components/car/DetailCar"
 import CarGallery from "../../../components/car/CarGallery"
 import ReviewsSection from "../../../components/reviews/ReviewsSection"
-import { getCar, getReviews, getCars, getCarsByIds } from "../../../lib/api"
+import { getCar, getReviews, getCars } from "../../../lib/api"
 import CarCategorySection from "../../../components/car/CarCategorySection"
-import { cookies } from "next/headers"
 import CarCardsGrid from "../../../components/car/CarCardsGrid"
 import RecentTracker from "../../../components/car/RecentTracker"
-import { RECENT_COOKIE, RECENT_LIMIT, parseRecent } from "../../../lib/recent"
 import CarDetailsSkeleton from "../../../components/skeleton/CarDetailsSkeleton"
 import ReviewsSectionSkeleton from "../../../components/skeleton/ReviewSectionSkeleton"
+import { getRecentCars } from "../../../lib/actions"
 import { Metadata } from "next"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -49,17 +48,24 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
           )
         : 0
 
-    const cookieStore = await cookies()
-    const recentIds = parseRecent(cookieStore.get(RECENT_COOKIE)?.value)
-        .filter((recentId) => recentId !== id)
-        .slice(0, RECENT_LIMIT)
 
+    const userData = await getUserData()
+    
+    // 1. Берем историю юзера (или [] для гостей), убираем текущую машину, берем 3 штуки
+    const recentIdsList = (userData?.recentCars || [])
+        .filter((recentId) => recentId !== id)
+        .slice(0, 3)
+
+    // 2. Делаем два запроса в базу ПАРАЛЛЕЛЬНО (ускоряет загрузку в 2 раза)
     const [recentCars, recommendedCars] = await Promise.all([
-        getCarsByIds(recentIds.slice(0, 3)),
+        getCarsByIds(recentIdsList),
         getCars("recommended", 4),
     ])
 
-    const recentParams = new URLSearchParams(recentIds.map((recentId) => ["id", recentId]))
+    const recentParams = new URLSearchParams(recentIdsList.map((recentId) => ["id", recentId]))
+
+        
+
 
     return (
         <div className="flex fade-in">
@@ -91,5 +97,13 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
             </div>
         </div>
     )
+}
+
+function getCarsByIds(recentIdsList: any): any {
+    throw new Error("Function not implemented.")
+}
+
+function getCarsByIds(recentIdsList: any): any {
+    throw new Error("Function not implemented.")
 }
 
