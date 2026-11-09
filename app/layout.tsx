@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import AuthProvider from "../components/providers/AuthProvider";
 import FavoritesProvider from "../components/providers/FavoritesProvider";
+import Footer from "../components/layout/Footer"
+import Header from "../components/layout/Header"
 
 // 2. Экспортируем объект с метаданными
 export const metadata: Metadata = {
@@ -17,8 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-import Footer from "../components/layout/Footer"
-import Header from "../components/layout/Header"
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],

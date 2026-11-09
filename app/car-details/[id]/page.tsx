@@ -12,6 +12,19 @@ import RecentTracker from "../../../components/car/RecentTracker"
 import { RECENT_COOKIE, RECENT_LIMIT, parseRecent } from "../../../lib/recent"
 import CarDetailsSkeleton from "../../../components/skeleton/CarDetailsSkeleton"
 import ReviewsSectionSkeleton from "../../../components/skeleton/ReviewSectionSkeleton"
+import { Metadata } from "next"
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const id = (await params).id
+  const carData = await getCar(id)
+  if (!carData) {
+    return {title: "Not found"}
+  }
+
+  return {title: carData.name}
+
+}
+
 
 export default function CarDetailsPage({params}: {params: Promise<{ id: string }>}) {
     return (
@@ -79,3 +92,4 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
         </div>
     )
 }
+
