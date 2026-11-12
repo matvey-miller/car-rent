@@ -13,5 +13,4 @@ export interface Car {
   capacity: string;
   pricePerDay: number;
   oldPricePerDay?: number;
-  isFavorite?: boolean;
 }

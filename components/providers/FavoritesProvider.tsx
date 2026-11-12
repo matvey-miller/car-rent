@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import { useRef } from "react"
 import { updateFavorites } from "../../lib/favorites"
 import { getUserData } from "../../lib/user"
+import { useRouter } from "next/navigation"
 
 interface FavoritesContextProps {
     favorites: string[]
@@ -18,12 +19,14 @@ const TIMER_INTERVAL = 500;
 
 
 export default function FavoritesProvider({ children }: { children: ReactNode }) {
+    const router = useRouter();
     const { data: session } = useSession()
     const userEmail = session?.user?.email
 
     const [favorites, setFavorites] = useState<string[]>([])
     //Debounce таймер воизбежание миллионов кликов -> в следствии запросов в бд
     const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const favoritesRef = useRef<string[]>([]);
 
     // 2. При входе юзера на сайт — один раз делаем GET запрос
     useEffect(() => {
@@ -34,6 +37,7 @@ export default function FavoritesProvider({ children }: { children: ReactNode })
             //актуализируем данные если пользователь есть в бд
             if (user) {
                 setFavorites(user.favorites || [])
+                favoritesRef.current = user.favorites || []
             }
             
         }
@@ -41,28 +45,33 @@ export default function FavoritesProvider({ children }: { children: ReactNode })
         fetchFavorites()
     }, [userEmail])
 
-    //Обновляем favorites-array по клику
+    //Обновляем favorites по клику c задержкой 500ms
     async function toggleFavorite(carId: string) {
-        if (!userEmail) return;
+        if (!userEmail) {
+            router.push("/login")
+            return
+        }
 
         if (timerRef.current) {
             clearTimeout(timerRef.current)
         }
-
-        const newFavorites = favorites.includes(carId)
-            ? favorites.filter((id) => id !== carId)
-            : [...favorites, carId]
+        const currentFavs = favoritesRef.current
+        const newFavorites = currentFavs.includes(carId)
+            ? currentFavs.filter((id) => id !== carId)
+            : [carId, ...currentFavs]
 
         const prevFavorites = favorites
         // Мгновенно обновляем стейт, чтобы сердечки перекрасились сразу!
-        setFavorites(newFavorites)
+        setFavorites(newFavorites) //для ui чтобы рендерились сердечки по новой
+        favoritesRef.current = newFavorites // для логики и чтобы не было потери данных при быстрых кликах на разные машины
         
         timerRef.current = setTimeout(async () => {
             try {
-                await updateFavorites(newFavorites)
+                await updateFavorites(favoritesRef.current)
             } catch {
                 //откат ui если запрос дпропнулся
                 setFavorites(prevFavorites)
+                favoritesRef.current = prevFavorites
             }
         }, TIMER_INTERVAL)
         

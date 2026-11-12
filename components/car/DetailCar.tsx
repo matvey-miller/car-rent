@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Car } from "../../data/cars";
 import Stars from "../ui/Stars";
+import { useFavorite } from "../providers/FavoritesProvider";
 
 interface DetailCarProps {
     car: Car;
@@ -11,9 +12,10 @@ interface DetailCarProps {
 }
 
 export default function DetailCar({ car, rating, reviewsCount }: DetailCarProps) {
-    const [isFavorite, setIsFavorite] = useState(car.isFavorite);
+    const {favorites, toggleFavorite} = useFavorite();
 
-    // Массив характеристик — чистый и удобный
+    const isFavorite = favorites.includes(car.id);
+    // Массив характеристик
     const specs = [
         { label: "Type Car", value: car.type },
         { label: "Capacity", value: car.capacity },
@@ -24,7 +26,7 @@ export default function DetailCar({ car, rating, reviewsCount }: DetailCarProps)
     return (
         <article className="detail-car">
             {/*like-burron*/}
-            <button type="button" aria-label="Toggle favorite" aria-pressed={isFavorite} onClick={() => setIsFavorite(!isFavorite)} className="absolute top-[24px] right-[24px] w-[24px] h-[24px]">
+            <button type="button" aria-label="Toggle favorite" aria-pressed={isFavorite} onClick={() => toggleFavorite(car.id)} className="absolute top-[24px] right-[24px] w-[24px] h-[24px]">
                 <img src={isFavorite ? "/buttons/like.svg" : "/buttons/unlike.svg"} alt="Favorite" className="w-[24px] h-[24px]" />
             </button>
 

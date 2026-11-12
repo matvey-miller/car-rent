@@ -61,7 +61,7 @@ export async function getFavoriteCars(count?: number): Promise<Car[]>{
     
     const favorites = await getCarsByIds(favoritesIds)
 
-    return favorites
+    return favorites || []
 }
 
 

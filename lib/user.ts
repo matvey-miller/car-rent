@@ -28,7 +28,8 @@ export async function getUserData() : Promise<FullUserData | null> {
     
     if (!email) return null 
 
-    const res = await fetch(`${API_URL}/users?email=${email}`, {cache: 'no-store'})
+    const emailParams = new URLSearchParams({email}).toString()
+    const res = await fetch(`${API_URL}/users?${emailParams}`, {cache: 'no-store'})
     if (!res.ok) throw new Error (`HTTP ${res.status}`)
     const existingUsers = await res.json()
 
@@ -53,7 +54,12 @@ export async function updateUserData(data: UpdateUserDTO): Promise<void> {
         await fetchOk(`${API_URL}/users/${userId}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
+            body: JSON.stringify({
+                name: data.name,
+                phone: data.phone,
+                address: data.address
+            }
+            ),
         })
 
         revalidatePath("/profile")

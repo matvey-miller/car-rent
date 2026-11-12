@@ -3,16 +3,18 @@ import { notFound } from "next/navigation"
 import FilterSidebar from "../../../components/filter/FilterSideBar"
 import DetailCar from "../../../components/car/DetailCar"
 import CarGallery from "../../../components/car/CarGallery"
+import { getUserData } from "../../../lib/user"
 import ReviewsSection from "../../../components/reviews/ReviewsSection"
-import { getCar, getReviews, getCars } from "../../../lib/api"
+import { getCar, getReviews, getCars, getCarsByIds } from "../../../lib/api"
 import CarCategorySection from "../../../components/car/CarCategorySection"
 import CarCardsGrid from "../../../components/car/CarCardsGrid"
 import RecentTracker from "../../../components/car/RecentTracker"
 import CarDetailsSkeleton from "../../../components/skeleton/CarDetailsSkeleton"
 import ReviewsSectionSkeleton from "../../../components/skeleton/ReviewSectionSkeleton"
-import { getRecentCars } from "../../../lib/actions"
 import { Metadata } from "next"
 
+
+//--------------------------------Meta Data (SEO)--------------------------
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const id = (await params).id
   const carData = await getCar(id)
@@ -20,9 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return {title: "Not found"}
   }
 
-  return {title: carData.name}
+  return {
+    title: carData.name,
+    description: carData.description,
+  }
 
 }
+
 
 
 export default function CarDetailsPage({params}: {params: Promise<{ id: string }>}) {
@@ -97,13 +103,5 @@ async function CarDetailsContent({params}: {params: Promise<{ id: string }>}) {
             </div>
         </div>
     )
-}
-
-function getCarsByIds(recentIdsList: any): any {
-    throw new Error("Function not implemented.")
-}
-
-function getCarsByIds(recentIdsList: any): any {
-    throw new Error("Function not implemented.")
 }
 
