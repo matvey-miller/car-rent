@@ -10,6 +10,7 @@
    4. HOME PAGE ......... Advertisement, Rental details, Category title,
                           Car cards, Show more
    5. CATEGORY PAGE ..... Filter sidebar, Detail car, Car gallery
+   6. PAYMENT PAGE
    ========================================================================== */
 
 
@@ -515,4 +516,42 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* ==========================================================================
+   6. PAYMENT PAGE
+   ========================================================================== */
+
+/* --- Fields (PaymentField, select в RentalInfo, промокод) --- */
+
+.payment-label {
+  font-size: var(--text-s-8);
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: var(--secondary-500);
+}
+
+.payment-field {
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  padding-left: 32px;
+  padding-right: 32px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: var(--bg-color);
+  font-size: var(--text-s-9);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--secondary-500);
+  outline: none;
+}
+
+.payment-field::placeholder {
+  color: var(--secondary-300);
+}
+
+.payment-field:focus {
+  border-color: var(--primary-500);
 }

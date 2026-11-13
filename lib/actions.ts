@@ -79,3 +79,28 @@ export async function getRecentCars(count?: number): Promise<Car[]>{
 
     return recent
 }
+
+export async function rentCar(carId: string) {
+    const session = await getServerSession(authOptions);
+    const userId = (session as any)?.user?.id
+
+     if (!userId) {
+        redirect("/login")
+    }
+
+    const rentObject = {
+        userId: userId,
+        carId: carId,
+        date: new Date().toISOString().slice(0, 10) //UTC date
+    }
+
+    await fetchOk(`${API_URL}/rental`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(rentObject),
+    })
+
+    redirect("/profile")
+}   
+
+

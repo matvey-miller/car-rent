@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import Link from "next/link";
 import type { Car } from "../../data/cars";
 import Stars from "../ui/Stars";
 import { useFavorite } from "../providers/FavoritesProvider";
@@ -66,9 +66,9 @@ export default function DetailCar({ car, rating, reviewsCount }: DetailCarProps)
                     )}
                 </div>
 
-                <button className="btn w-[140px] h-[56px] px-[20px] bg-primary-500 text-s-8 font-bold tracking-[-0.32px] text-white">
+                <Link href={`/payment/${car.id}`} className="btn w-[140px] h-[56px] px-[20px] bg-primary-500 text-s-8 font-bold tracking-[-0.32px] text-white">
                     Rent Now
-                </button>
+                </Link>
             </div>
         </article>
     );
