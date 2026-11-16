@@ -7,6 +7,10 @@ import {getUserData} from "./user"
 import { getCarsByIds } from "./api";
 import type {Car} from "../data/cars.ts"
 import { redirect } from "next/navigation";
+import { getCar } from "./api";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export async function postReview(carId: string, rating: number, comment: string): Promise<void> {
     const session = await getServerSession(authOptions)
@@ -81,6 +85,15 @@ export async function getRecentCars(count?: number): Promise<Car[]>{
 }
 
 export async function rentCar(carId: string) {
+    const car = await getCar(carId)
+
+    if (!car) {
+        throw new Error("Car is not found")
+    }
+
+    const amountInCents = car.pricePerDay * 100
+
+
     const session = await getServerSession(authOptions);
     const userId = (session as any)?.user?.id
 
@@ -94,7 +107,7 @@ export async function rentCar(carId: string) {
         date: new Date().toISOString().slice(0, 10) //UTC date
     }
 
-    await fetchOk(`${API_URL}/rental`, {
+    await fetchOk(`${API_URL}/rentals`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(rentObject),
@@ -104,3 +117,20 @@ export async function rentCar(carId: string) {
 }   
 
 
+export async function createPaymentIntent(carId: string) {
+    const car = await getCar(carId)
+
+    if (!car) {
+        throw new Error("Car is not found")
+    }
+
+    const amountInCents = car.pricePerDay * 100
+
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: amountInCents,
+        currency: "usd",
+    });
+
+    //возвращаем ключ для фронтенда, чтобы страйп принимал транзакции без моего участия. (напрямую, я данных карточки не вижу)
+    return paymentIntent.client_secret
+}

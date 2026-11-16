@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useTransition } from "react"
+import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import StatusMessage from "../components/ui/StatusMessage"
@@ -9,10 +9,6 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
 
-    // useEffect(() => {
-    //     Отправляем ошибку на наш сервер аналитики
-    //     Sentry.captureException(error);
-    // }, [error])
 
     function retry() {
         startTransition(() => {

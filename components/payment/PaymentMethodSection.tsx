@@ -1,5 +1,8 @@
+'use client'
 import PaymentSection from "./PaymentSection"
 import PaymentField from "./PaymentField"
+import { CardElement } from "@stripe/react-stripe-js"
+
 
 const methods = [
     { value: "card", label: "Credit Card" },
@@ -19,12 +22,17 @@ export default function PaymentMethodSection() {
                 ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-x-[32px] gap-y-[24px]">
-                <PaymentField label="Card Number" name="cardNumber" placeholder="Card number" />
-                <PaymentField label="Expiration Date" name="cardExpiry" placeholder="DD / MM / YY" />
-                <PaymentField label="Card Holder" name="cardHolder" placeholder="Card holder" />
-                <PaymentField label="CVC" name="cardCvc" placeholder="CVC" />
-            </div>
+                <div className="flex flex-col gap-[24px] bg-bg-color p-[24px] rounded-[10px] mt-[24px]">
+                    <PaymentField label="Card Holder" name="cardHolder" placeholder="Card holder name" />
+                    
+                    <div className="flex flex-col gap-[8px]">
+                        <span className="text-s-8 font-semibold tracking-[-0.02em] text-secondary-500">Card Details</span>
+                        <div className="h-[56px] bg-white rounded-[10px] px-[24px] flex flex-col justify-center border border-secondary-100">
+                            {/* Это защищенный iframe Stripe. Номер, дата и CVC уже внутри */}
+                            <CardElement options={{ hidePostalCode: true }} />
+                        </div>
+                    </div>
+                </div>
         </PaymentSection>
     )
 }

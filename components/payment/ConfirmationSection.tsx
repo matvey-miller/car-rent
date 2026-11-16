@@ -1,6 +1,49 @@
+'use client'
 import PaymentSection from "./PaymentSection"
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
+import { useParams } from "next/navigation"
+import { useTransition } from "react"
+import { rentCar } from "../../lib/actions"
+import {createPaymentIntent} from "../../lib/actions"
+
+
 
 export default function ConfirmationSection() {
+    const stripe = useStripe()
+    const elements = useElements()
+    const params = useParams<{id: string}>()
+    const [isPending, startTransition] = useTransition()
+
+    const { id } = params
+
+    async function handlePayment(e: React.MouseEvent) {
+        e.preventDefault()
+
+        if (!stripe || !elements || !id) return;
+
+        startTransition(async () => {
+            const clientSecret = await createPaymentIntent(id);
+            const card = elements.getElement(CardElement)
+
+            const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: { card: card! }
+                })
+
+            if (error) {
+                console.log("payment is not succefull")
+                return;
+            } else if (paymentIntent) {
+                await rentCar(id)
+            }
+
+            
+        })
+
+        
+
+        
+    }
+
     return (
         <PaymentSection title="Confirmation" text="We are getting to the end. Just a few clicks and your rental is ready!" step={4}>
             <div className="flex flex-col gap-[24px]">
@@ -15,8 +58,12 @@ export default function ConfirmationSection() {
                 </label>
             </div>
 
-            <button type="submit" className="btn w-[140px] h-[56px] bg-primary-500 text-s-8 font-bold tracking-[-0.32px] text-white">
-                Rent Now
+            <button 
+            onClick={handlePayment}
+            disabled={isPending}
+            type="submit" 
+            className="btn w-[140px] h-[56px] bg-primary-500 text-s-8 font-bold tracking-[-0.32px] text-white">
+                {isPending ? <span>Loading...</span> : <span>Rent now</span>}
             </button>
         </PaymentSection>
     )
