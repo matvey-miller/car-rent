@@ -29,15 +29,12 @@ export default function ConfirmationSection() {
                     payment_method: { card: card! }
                 })
 
-            if (error) {
-                console.log("payment is not succefull")
-                return;
-            } else if (paymentIntent) {
-                await rentCar(id)
-            }
+            if (error || !paymentIntent)  return;
+            
+            await rentCar(id, paymentIntent.id)
 
             
-        })
+            })
 
         
 

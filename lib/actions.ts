@@ -84,14 +84,28 @@ export async function getRecentCars(count?: number): Promise<Car[]>{
     return recent
 }
 
-export async function rentCar(carId: string) {
+export async function rentCar(carId: string, intentId: string) {
+
+    const currentPaymentIntent = await stripe.paymentIntents.retrieve(intentId)
+    
+    if (currentPaymentIntent.status !== 'succeeded' || currentPaymentIntent.metadata.carId !== carId) {
+        throw new Error("Payment was declined")
+    }
+
+    
+
+
     const car = await getCar(carId)
 
     if (!car) {
         throw new Error("Car is not found")
     }
 
-    const amountInCents = car.pricePerDay * 100
+    const amountInCents: number = car.pricePerDay * 100
+
+    if (currentPaymentIntent.amount !== amountInCents) {
+        throw new Error ("Payment was declined")
+    }
 
 
     const session = await getServerSession(authOptions);
@@ -118,6 +132,7 @@ export async function rentCar(carId: string) {
 
 
 export async function createPaymentIntent(carId: string) {
+
     const car = await getCar(carId)
 
     if (!car) {
@@ -129,6 +144,9 @@ export async function createPaymentIntent(carId: string) {
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amountInCents,
         currency: "usd",
+        metadata: {
+            carId: carId,
+        }
     });
 
     //возвращаем ключ для фронтенда, чтобы страйп принимал транзакции без моего участия. (напрямую, я данных карточки не вижу)
