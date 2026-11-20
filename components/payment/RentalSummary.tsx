@@ -9,7 +9,7 @@ export default async function RentalSummary({ car }: { car: Car }) {
     ]
 
     return (
-        <aside className="w-[492px] rounded-[10px] bg-white p-[32px] flex flex-col gap-[24px]">
+        <aside className="w-[492px] rounded-[10px] bg-white p-[32px] flex flex-col gap-[24px] fade-in">
             <div className="flex flex-col gap-[4px]">
                 <h2 className="text-s-6 font-bold leading-[30px] tracking-[-0.02em] text-secondary-500">Rental Summary</h2>
                 <p className="text-s-9 font-medium leading-[21px] tracking-[-0.02em] text-secondary-300">

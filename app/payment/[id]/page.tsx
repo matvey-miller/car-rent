@@ -1,32 +1,17 @@
-import BillingInfoSection from "../../../components/payment/BillingInfoSection"
-import RentalInfoSection from "../../../components/payment/RentalInfoSection"
-import PaymentMethodSection from "../../../components/payment/PaymentMethodSection"
-import ConfirmationSection from "../../../components/payment/ConfirmationSection"
-import RentalSummary from "../../../components/payment/RentalSummary"
-import { Suspense } from "react"
+import PaymentForm from "../../../components/payment/PaymentForm"
 import { getCar } from "../../../lib/api"
 import { notFound } from "next/navigation"
-import ClientStripeProvider from "../../../components/payment/ClientStripeProvider"
+import RentalSummary from "../../../components/payment/RentalSummary"
+import { Suspense } from "react"
 
 export default async function PaymentPage({ params }: { params: Promise<{ id: string }> }) {
 
     return (
-        <form className="flex items-start gap-[32px] w-[1312px] m-auto my-[32px]">
-            <div className="flex-1 flex flex-col gap-[32px]">
-                <BillingInfoSection />
-                <RentalInfoSection />
-                <ClientStripeProvider>
-                    <PaymentMethodSection />
-                    <Suspense>
-                        <ConfirmationSection />
-                    </Suspense>
-                </ClientStripeProvider>
-                
-            </div>
-            <Suspense fallback={<div>llll</div>}>
-                <RentalSummaryWrapper params={params}/>
+        <PaymentForm>
+            <Suspense fallback={<div className="w-[492px] h-[546px] rounded-[10px] bg-secondary-100 p-[32px] flex flex-col gap-[24px] skeleton"></div>}>
+                    <RentalSummaryWrapper params={params}/>
             </Suspense>
-        </form>
+        </PaymentForm>
     )
 }
 

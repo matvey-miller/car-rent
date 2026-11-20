@@ -522,11 +522,11 @@
    6. PAYMENT PAGE
    ========================================================================== */
 
-/* --- Fields (PaymentField, select в RentalInfo, промокод) --- */
+/* --- Fields (PaymentField, PaymentSelect, Stripe-обёртки, промокод) --- */
 
 .payment-label {
   font-size: var(--text-s-8);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 24px;
   letter-spacing: -0.02em;
   color: var(--secondary-500);
@@ -546,12 +546,71 @@
   letter-spacing: -0.02em;
   color: var(--secondary-500);
   outline: none;
+  transition: border-color 0.2s;
 }
 
 .payment-field::placeholder {
   color: var(--secondary-300);
 }
 
-.payment-field:focus {
+.payment-field:hover {
+  border-color: var(--secondary-200);
+}
+
+/* у Stripe-элемента фокус лежит внутри iframe, поэтому ловим его классом обёртки */
+.payment-field:focus,
+.payment-field:has(.StripeElement--focus) {
   border-color: var(--primary-500);
+}
+
+/* select: своя стрелка, пока выбран пустой option — цвет placeholder */
+.payment-select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 56px;
+}
+
+.payment-select:has(option[value=""]:checked) {
+  color: var(--secondary-300);
+}
+
+/* поля внутри серой плашки Credit Card — белые */
+.payment-card-fields .payment-field {
+  background-color: var(--white);
+}
+
+/* --- Radio (PaymentMethodSection) --- */
+
+.payment-radio {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  flex-shrink: 0;
+  border: 1px solid var(--secondary-300);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.payment-radio:checked {
+  border-color: var(--primary-200);
+  background: radial-gradient(circle, var(--primary-500) 0 4px, var(--primary-200) 5px);
+}
+
+/* date / time: нативный input, но со своей стрелкой вместо иконки браузера */
+.payment-picker {
+  position: relative;
+  appearance: none;
+  cursor: pointer;
+  padding-right: 56px;
+}
+
+/* родная иконка растягивается на всё поле и невидима: клик в любом месте открывает выбор */
+.payment-picker::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }

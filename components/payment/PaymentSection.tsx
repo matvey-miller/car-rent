@@ -9,9 +9,9 @@ interface PaymentSectionProps {
 
 export default function PaymentSection({ title, text, step, children }: PaymentSectionProps) {
     return (
-        <section className="rounded-[10px] bg-white p-[32px] flex flex-col gap-[32px]">
+        <section className="rounded-[10px] bg-white p-[24px] flex flex-col gap-[32px]">
             <div className="flex justify-between items-start">
-                <div className="flex flex-col gap-[4px]">
+                <div className="flex flex-col gap-[2px]">
                     <h2 className="text-s-6 font-bold leading-[30px] tracking-[-0.02em] text-secondary-500">{title}</h2>
                     <p className="text-s-9 font-medium leading-[21px] tracking-[-0.02em] text-secondary-300">{text}</p>
                 </div>

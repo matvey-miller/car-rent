@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { z } from "zod";
+import {profileSchema, ProfileFormValues } from "../../lib/validations/profile"
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUserData } from "../../lib/user";
@@ -16,15 +16,7 @@ interface EditProfileFormProps {
 }
 
 
-const profileSchema = z.object({
-    name: z.string().min(2, "Name is too short"),
-    phone: z.string().min(10, "Phone must be at least 10 characters").or(z.literal("")),
-    address: z.string().or(z.literal(""))
 
-})
-
-// Zod умеет сам генерировать TypeScript-тип на основе схемы. Это супер-удобно!
-export type ProfileFormValues = z.infer<typeof profileSchema>;
 
 
 export default function EditProfileForm({ initialData }: EditProfileFormProps) {

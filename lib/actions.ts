@@ -9,6 +9,8 @@ import type {Car} from "../data/cars.ts"
 import { redirect } from "next/navigation";
 import { getCar } from "./api";
 import Stripe from "stripe";
+import { paymentFormSchema, PaymentFormValues } from "./validations/payment";
+import { NewRentalTransaction } from "../data/rentals";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -84,30 +86,14 @@ export async function getRecentCars(count?: number): Promise<Car[]>{
     return recent
 }
 
-export async function rentCar(carId: string, intentId: string) {
+export interface RentCarDTO {
+    carId: string;
+    paymentIntentId: string;
+    formData: PaymentFormValues;
+}
 
-    const currentPaymentIntent = await stripe.paymentIntents.retrieve(intentId)
-    
-    if (currentPaymentIntent.status !== 'succeeded' || currentPaymentIntent.metadata.carId !== carId) {
-        throw new Error("Payment was declined")
-    }
-
-    
-
-
-    const car = await getCar(carId)
-
-    if (!car) {
-        throw new Error("Car is not found")
-    }
-
-    const amountInCents: number = car.pricePerDay * 100
-
-    if (currentPaymentIntent.amount !== amountInCents) {
-        throw new Error ("Payment was declined")
-    }
-
-
+export async function rentCar(payInfo: RentCarDTO) {
+    //проверка авторизован ли пользователь
     const session = await getServerSession(authOptions);
     const userId = (session as any)?.user?.id
 
@@ -115,11 +101,58 @@ export async function rentCar(carId: string, intentId: string) {
         redirect("/login")
     }
 
-    const rentObject = {
+
+    //проверка платежного контракта и айди машины
+    const intentId = payInfo.paymentIntentId
+    const carId = payInfo.carId
+
+    const currentPaymentIntent = await stripe.paymentIntents.retrieve(intentId)
+    if (currentPaymentIntent.status !== 'succeeded' || currentPaymentIntent.metadata.carId !== carId) {
+        throw new Error("Payment was declined")
+    }
+
+    
+
+    //проверка есть ли такая машина в бд
+    const car = await getCar(carId)
+
+    if (!car) {
+        throw new Error("Car is not found")
+    }
+
+
+    //проверка на цену машины
+    const amountInCents: number = car.pricePerDay * 100
+    if (currentPaymentIntent.amount !== amountInCents) {
+        throw new Error ("Payment was declined")
+    }
+
+    //проверка на корреткные данные заполненные пользователем
+    //zod помимо того что провалидирует поля, так еще и отсечет лишние, которые не были заданы нами
+    const validatedData = paymentFormSchema.parse(payInfo.formData)
+
+
+    
+    //новый контракт в бд
+    const rentObject: NewRentalTransaction = {
         userId: userId,
         carId: carId,
-        date: new Date().toISOString().slice(0, 10) //UTC date
-    }
+        paymentIntentId: intentId,
+        totalPrice: car.pricePerDay,
+        status: "succeeded",
+        createdAt: new Date().toISOString(),
+        
+        clientName: validatedData.name,
+        clientPhone: validatedData.phone,
+        clientAddress: validatedData.address,
+        clientCity: validatedData.city,
+        
+        pickUpLocation: validatedData.pickUpLocation,
+        pickUpDate: `${validatedData.pickUpDate}T${validatedData.pickUpTime}`, 
+        
+        dropOffLocation: validatedData.dropOffLocation,
+        dropOffDate: `${validatedData.dropOffDate}T${validatedData.dropOffTime}`,
+    };
 
     await fetchOk(`${API_URL}/rentals`, {
         method: "POST",
